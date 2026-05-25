@@ -75,7 +75,7 @@ export default function About() {
           {/* Main visual frame */}
           <div className="relative aspect-[4/5] bg-prime-charcoal2 border border-gold/10 overflow-hidden">
             <img
-              src="/dist/assets/prime.jpeg"
+              src="/assets/prime.jpeg"
               alt="Prime visual"
               className="absolute inset-0 w-full h-full object-cover"
             />
