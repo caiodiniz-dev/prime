@@ -57,7 +57,7 @@ export default function Footer() {
                 />
               </div>
             </div>
-            <div className="flex justify-center md:justify-start gap-2">
+            <div className="flex justify-center md:justify-start gap-3">
               {socials.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
@@ -66,10 +66,9 @@ export default function Footer() {
                   rel="noreferrer"
                   aria-label={label}
                   title={label}
-                  className="w-11 h-11 border border-gold/20 flex items-center justify-center text-prime-gray font-bold text-sm
-                                               hover:bg-gold hover:text-prime-black hover:border-gold transition-all duration-200"
+                  className="w-12 h-12 border border-gold/20 flex items-center justify-center text-prime-gray font-bold text-sm hover:bg-gold hover:text-prime-black hover:border-gold transition-all duration-200"
                 >
-                  <Icon size={17} />
+                  <Icon size={20} />
                 </a>
               ))}
             </div>
@@ -101,11 +100,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 text-center">
           <p className="font-body text-[11px] text-prime-gray/50 tracking-[0.5px]">
             © 2026 Prime Company. Todos os direitos reservados.
           </p>
-          <span className="flex items-center gap-2 font-body font-bold text-[10px] tracking-[2px] uppercase text-gold/50">
+          <span className="flex items-center justify-center gap-2 font-body font-bold text-[10px] tracking-[2px] uppercase text-gold/50">
             <span className="w-5 h-px bg-gold/40" />
             Prime Company
           </span>
