@@ -1,5 +1,4 @@
 const logos = [
-  { src: "/assets/prime.jpeg", alt: "Prime" },
   { src: "/assets/logos/ALCATEIACEVISA.png", alt: "Alcateia Cevisa" },
   { src: "/assets/logos/CAPAWANDERSSON.png", alt: "Capa Wandersson" },
   {
@@ -27,7 +26,7 @@ export default function Marquee() {
             <img
               src={src}
               alt={alt}
-              className={`${alt === "Prime" ? "w-64 h-64" : "w-48 h-48"} object-contain filter grayscale opacity-50 group-hover:filter-none group-hover:opacity-100`}
+              className="w-56 h-56 object-contain filter grayscale opacity-50 group-hover:filter-none group-hover:opacity-100"
             />
           </div>
         ))}
