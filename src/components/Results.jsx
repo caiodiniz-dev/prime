@@ -6,7 +6,7 @@ const numbers = [
   { num: 2, suffix: "B", label: "Bilhões de views gerados" },
   { num: 10, suffix: "+", label: "Escolas Parceiras Ativas" },
   { num: 200, suffix: "+", label: "Peças Entregues por Mês" },
-  { num: 100, suffix: "%", label: "Especialistas em posicionamento" },
+  { num: 6, suffix: "", label: "Especialistas em Posicionamento" },
 ];
 
 export default function Results() {
@@ -73,10 +73,10 @@ export default function Results() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: 0.2 + i * 0.1 }}
-                className="bg-gold/30 hover:bg-prime-black/5 transition-colors duration-300 p-10 text-center group"
+                className="bg-gold/30 hover:bg-prime-black/5 transition-colors duration-300 p-10 text-center group flex flex-col items-center justify-center"
               >
                 <span
-                  className="block font-display font-black text-prime-black leading-none mb-2"
+                  className="block font-display font-black text-prime-black leading-none mb-3"
                   style={{ fontSize: "clamp(40px, 4vw, 64px)" }}
                 >
                   {inView ? (
@@ -84,14 +84,19 @@ export default function Results() {
                   ) : (
                     "0"
                   )}
+                  {/* B sempre em preto, sem opacidade reduzida */}
                   <span
-                    className="text-prime-black/40 ml-1"
+                    className="text-prime-black font-black"
                     style={{ fontSize: "0.6em" }}
                   >
                     {suffix}
                   </span>
                 </span>
-                <span className="block font-body font-bold text-[10px] tracking-[2px] uppercase text-prime-black/55">
+                {/* Label alinhado e com tamanho mínimo para não comprimir */}
+                <span
+                  className="block font-body font-bold text-[10px] tracking-[2px] uppercase text-prime-black/55 text-center leading-tight"
+                  style={{ maxWidth: "120px" }}
+                >
                   {label}
                 </span>
               </motion.div>

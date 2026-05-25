@@ -41,15 +41,12 @@ export default function ScrollVideoHero() {
   const finishIntro = useCallback(() => {
     if (introDone.current) return;
     introDone.current = true;
-
     if (introTimer.current) {
       clearTimeout(introTimer.current);
       introTimer.current = null;
     }
-
     const video = videoRef.current;
     if (video && !video.paused) video.pause();
-
     setProgress(1);
     setCountdown(0);
     unlockScroll();
@@ -67,7 +64,6 @@ export default function ScrollVideoHero() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
     const onTime = () => {
       const nextProgress = Math.min(
         video.currentTime / INTRO_DURATION_SECONDS,
@@ -78,19 +74,16 @@ export default function ScrollVideoHero() {
         Math.max(0, Math.ceil(INTRO_DURATION_SECONDS - video.currentTime)),
       );
     };
-
     video.addEventListener("timeupdate", onTime);
     return () => video.removeEventListener("timeupdate", onTime);
   }, [videoReady]);
 
   useEffect(() => {
     if (!videoReady || hasStarted.current || introDone.current) return;
-
     hasStarted.current = true;
     lockScroll();
     setPhase("playing");
     setCountdown(INTRO_DURATION_SECONDS);
-
     const video = videoRef.current;
     if (video) {
       video.currentTime = 0;
@@ -99,9 +92,7 @@ export default function ScrollVideoHero() {
       setMuted(true);
       video.play().catch(() => {});
     }
-
     introTimer.current = setTimeout(finishIntro, INTRO_DURATION_SECONDS * 1000);
-
     return () => {
       if (introTimer.current) {
         clearTimeout(introTimer.current);
@@ -126,7 +117,6 @@ export default function ScrollVideoHero() {
       video.muted = shouldMute;
       video.volume = shouldMute ? 0 : 1;
       setMuted(video.muted);
-
       if (!shouldMute) {
         video.play().catch(() => {
           video.muted = true;
@@ -375,6 +365,8 @@ export default function ScrollVideoHero() {
         </motion.div>
       </div>
 
+      {/* ===== INDICADORES INFERIORES — todos centralizados ===== */}
+
       <AnimatePresence>
         {phase === "idle" && videoReady && (
           <motion.div
@@ -382,7 +374,7 @@ export default function ScrollVideoHero() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 select-none"
+            className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-2 z-20 select-none"
           >
             <span className="font-body text-[10px] tracking-[4px] uppercase text-white/50 mb-1">
               Preparando vídeo
@@ -414,7 +406,7 @@ export default function ScrollVideoHero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.5 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 pointer-events-none"
+            className="absolute bottom-8 inset-x-0 z-20 flex flex-col items-center gap-1 pointer-events-none"
           >
             <div className="flex items-center gap-1">
               {[0, 1, 2, 3].map((i) => (
@@ -445,7 +437,8 @@ export default function ScrollVideoHero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
+            /* CORRIGIDO: inset-x-0 + items-center para centralizar */
+            className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-2 z-20 pointer-events-none"
           >
             <motion.div
               animate={{ y: [0, 6, 0] }}

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   ArrowRight,
   Camera,
+  ChevronLeft,
+  ChevronRight,
   Clapperboard,
   Goal,
   Image,
@@ -25,7 +27,7 @@ const mediaItems = [
     size: "featured",
     client: "SPFC",
     tag: "Prime Football · Reel",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "REELS DO SPFC\n#VEMSERSPFC",
     duration: "2:34",
     imageUrl: "/assets/videos/vd-1.jpeg",
     icon: Shield,
@@ -38,7 +40,7 @@ const mediaItems = [
     size: "half",
     client: "Alcateia",
     tag: "Vídeo Vertical",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "ALCATEIA\nNOVORIZONTINO",
     duration: "2:15",
     imageUrl: "/assets/videos/vd-2.jpeg",
     icon: Shield,
@@ -51,7 +53,7 @@ const mediaItems = [
     size: "half",
     client: "Goalz",
     tag: "Vídeo Profissional",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "GOALZ SPORT\nCLUB",
     duration: "1:58",
     imageUrl: "/assets/videos/vd-3.jpeg",
     icon: Camera,
@@ -64,7 +66,7 @@ const mediaItems = [
     size: "small",
     client: "Chute Inicial",
     tag: "Entrevista Vertical",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "CHUTE INICIAL\nHORTOLÂNDIA",
     imageUrl: "/assets/videos/vd-4.jpeg",
     icon: Smartphone,
     gradient: "from-[#1a1a0a] via-[#2d2800] to-[#1a1a0a]",
@@ -76,7 +78,7 @@ const mediaItems = [
     size: "small",
     client: "Paulínia Sports",
     tag: "Frames & Clips",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "PAULÍNIA\nSPORTS CLUB",
     duration: "0:45",
     imageUrl: "/assets/videos/vd-1.jpeg",
     icon: Target,
@@ -89,7 +91,7 @@ const mediaItems = [
     size: "small",
     client: "Goalz",
     tag: "Cobertura Fotográfica",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "GOALZ\nEM CAMPO",
     photoUrl: "/foto-goalz-sport.jpeg",
     icon: LandPlot,
     gradient: "from-[#1a0a1a] via-[#1a001a] to-[#0a000a]",
@@ -101,7 +103,7 @@ const mediaItems = [
     size: "small",
     client: "São Paulo",
     tag: "Cobertura de Campeonato",
-    title: "REELS DO SANTO PAULO #VEMSERSPFC",
+    title: "SÃO PAULO\nCAMPEONATO",
     photoUrl: "/foto-sao-paulo.jpeg",
     icon: Clapperboard,
     gradient: "from-[#001a1a] via-[#001a20] to-[#001010]",
@@ -113,30 +115,20 @@ function typeFromTab(tab) {
   if (tab === "Todos") return null;
   if (tab === "Vídeos") return "video";
   if (tab === "Fotos") return "foto";
-  return "grafico";
+  return null;
 }
 
-function MediaCard({ item, index, onClick }) {
+function MediaCard({ item, onClick }) {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const isVideo = item.type === "video";
-  const isFeatured = item.size === "featured";
   const Icon = item.icon || Goal;
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.07,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      onClick={() => onClick(item)}
-      className={`relative overflow-hidden cursor-pointer group ${
-        isFeatured ? "row-span-2" : ""
-      }`}
-      style={{ minHeight: isFeatured ? "520px" : "240px" }}
+      onClick={onClick}
+      className="relative overflow-hidden cursor-pointer group flex-shrink-0"
+      style={{ width: "340px", height: "420px" }}
     >
       {/* Gradient BG */}
       <div
@@ -173,12 +165,12 @@ function MediaCard({ item, index, onClick }) {
       />
 
       {/* Big icon */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.06] select-none pointer-events-none transition-transform duration-700 group-hover:scale-110">
-        <Icon size={isFeatured ? 122 : 92} className="text-gold" />
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.06] select-none pointer-events-none">
+        <Icon size={96} className="text-gold" />
       </div>
 
       {/* Dark gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-prime-black/90 via-prime-black/20 to-transparent transition-opacity duration-300 group-hover:from-prime-black/75" />
+      <div className="absolute inset-0 bg-gradient-to-t from-prime-black/90 via-prime-black/20 to-transparent" />
 
       {/* Corner marks */}
       <div className="corner-tl" />
@@ -187,14 +179,14 @@ function MediaCard({ item, index, onClick }) {
       {/* Play button (videos) */}
       {isVideo && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <motion.div className="relative w-14 h-14 border-2 border-white/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:border-gold group-hover:bg-gold/10">
+          <div className="relative w-14 h-14 border-2 border-white/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:border-gold group-hover:bg-gold/10">
             <motion.span
               className="absolute inset-[-8px] rounded-full border border-gold/30 opacity-0 group-hover:opacity-100"
               animate={{ scale: [1, 1.4], opacity: [0.6, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             />
             <Play size={22} className="text-gold fill-gold ml-0.5" />
-          </motion.div>
+          </div>
         </div>
       )}
 
@@ -238,17 +230,14 @@ function MediaCard({ item, index, onClick }) {
       </div>
 
       {/* Bottom info */}
-      <div className="absolute bottom-0 inset-x-0 p-5 z-20 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+      <div className="absolute bottom-0 inset-x-0 p-5 z-20">
         <span
           className="block font-body text-[9px] font-bold tracking-[2px] uppercase mb-1.5"
           style={{ color: item.accent }}
         >
           {item.tag}
         </span>
-        <h3
-          className="font-display font-bold text-white leading-tight"
-          style={{ fontSize: isFeatured ? "26px" : "15px" }}
-        >
+        <h3 className="font-display font-bold text-white leading-tight text-[16px]">
           {item.title.split("\n").map((line, i) => (
             <span key={i} className="block">
               {line}
@@ -259,21 +248,25 @@ function MediaCard({ item, index, onClick }) {
           {item.client}
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function Portfolio() {
   const [activeTab, setActiveTab] = useState("Todos");
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const scrollRef = useRef(null);
 
   const typeFilter = typeFromTab(activeTab);
   const filtered = typeFilter
     ? mediaItems.filter((i) => i.type === typeFilter)
     : mediaItems;
 
-  // Layout: featured (col-span-2, row-span-2) + rest in masonry
-  const [featured, ...rest] = filtered;
+  const scroll = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === "left" ? -370 : 370, behavior: "smooth" });
+  };
 
   return (
     <section id="projetos" className="py-28 bg-prime-black overflow-hidden">
@@ -336,7 +329,7 @@ export default function Portfolio() {
           </motion.a>
         </div>
 
-        {/* Grid */}
+        {/* Carrossel */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -344,52 +337,49 @@ export default function Portfolio() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
+            className="relative"
           >
-            {/* Featured + side stack */}
-            {featured && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-0.5 mb-0.5">
-                <div className="lg:col-span-2">
+            {/* Botões de navegação */}
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 -translate-x-4 w-12 h-12 bg-prime-charcoal2 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black transition-all duration-200 shadow-xl"
+              aria-label="Anterior"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 translate-x-4 w-12 h-12 bg-prime-charcoal2 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black transition-all duration-200 shadow-xl"
+              aria-label="Próximo"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-12 z-10 bg-gradient-to-r from-prime-black to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-12 z-10 bg-gradient-to-l from-prime-black to-transparent pointer-events-none" />
+
+            {/* Scroll container */}
+            <div
+              ref={scrollRef}
+              className="flex gap-4 overflow-x-auto pb-4"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                scrollSnapType: "x mandatory",
+              }}
+            >
+              <style>{`div::-webkit-scrollbar { display: none; }`}</style>
+              {filtered.map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.06, duration: 0.5 }}
+                  style={{ scrollSnapAlign: "start" }}
+                >
                   <MediaCard
-                    item={featured}
-                    index={0}
-                    onClick={() =>
-                      window.open(
-                        "https://www.instagram.com/agenciaprimefootball/",
-                        "_blank",
-                      )
-                    }
-                  />
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  {rest.slice(0, 2).map((item, i) => (
-                    <MediaCard
-                      key={item.id}
-                      item={item}
-                      index={i + 1}
-                      onClick={() =>
-                        window.open(
-                          "https://www.instagram.com/agenciaprimefootball/",
-                          "_blank",
-                        )
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-            {/* Bottom row */}
-            {rest.length > 2 && (
-              <div
-                className="grid gap-0.5"
-                style={{
-                  gridTemplateColumns: `repeat(${Math.min(rest.slice(2).length, 4)}, 1fr)`,
-                }}
-              >
-                {rest.slice(2).map((item, i) => (
-                  <MediaCard
-                    key={item.id}
                     item={item}
-                    index={i + 3}
                     onClick={() =>
                       window.open(
                         "https://www.instagram.com/agenciaprimefootball/",
@@ -397,9 +387,14 @@ export default function Portfolio() {
                       )
                     }
                   />
-                ))}
-              </div>
-            )}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Indicador de scroll */}
+            <p className="text-center font-body text-[10px] tracking-[2px] uppercase text-prime-gray/40 mt-4">
+              ← Deslize para ver mais →
+            </p>
           </motion.div>
         </AnimatePresence>
       </div>

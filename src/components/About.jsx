@@ -72,18 +72,22 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Main visual frame */}
+          {/* Main visual frame — CORRIGIDO: overlay reduzido para imagem aparecer */}
           <div className="relative aspect-[4/5] bg-prime-charcoal2 border border-gold/10 overflow-hidden">
             <img
               src="/dist/assets/prime.jpeg"
               alt="Prime visual"
               className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: "center top" }}
             />
-            <div className="absolute inset-0 bg-prime-black/65" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-56 h-56">
+            {/* Overlay mais sutil para a imagem aparecer */}
+            <div className="absolute inset-0 bg-prime-black/30" />
+
+            {/* Rings decorativos — menos opacos para não tapar a foto */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="relative w-48 h-48">
                 <motion.div
-                  className="absolute inset-0 rounded-full border border-white/10"
+                  className="absolute inset-0 rounded-full border border-white/8"
                   animate={{ rotate: 360 }}
                   transition={{
                     duration: 20,
@@ -92,7 +96,7 @@ export default function About() {
                   }}
                 />
                 <motion.div
-                  className="absolute inset-6 rounded-full border border-white/15"
+                  className="absolute inset-6 rounded-full border border-white/10"
                   animate={{ rotate: -360 }}
                   transition={{
                     duration: 24,
@@ -101,7 +105,7 @@ export default function About() {
                   }}
                 />
                 <motion.div
-                  className="absolute inset-12 rounded-full border border-white/20"
+                  className="absolute inset-12 rounded-full border border-white/12"
                   animate={{ rotate: 360 }}
                   transition={{
                     duration: 28,
@@ -114,7 +118,7 @@ export default function About() {
 
             {/* Grid overlay */}
             <div
-              className="absolute inset-0 opacity-[0.04]"
+              className="absolute inset-0 opacity-[0.03]"
               style={{
                 backgroundImage:
                   "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
@@ -124,10 +128,13 @@ export default function About() {
 
             {/* Scan animation */}
             <motion.div
-              className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+              className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
               animate={{ top: ["0%", "100%"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             />
+
+            {/* Gradient bottom para texto */}
+            <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-prime-black/60 to-transparent" />
           </div>
 
           {/* Gold card — bottom right */}

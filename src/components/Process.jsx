@@ -117,10 +117,7 @@ export default function Process() {
 
               <div className="relative z-10">
                 {/* Number with animation */}
-                <motion.div
-                  className="mb-6 flex items-center justify-between gap-4"
-                  whileHover={{ scale: 1.05 }}
-                >
+                <div className="mb-6 flex items-center justify-between gap-4">
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 12 }}
                     whileTap={{ scale: 0.95 }}
@@ -146,29 +143,19 @@ export default function Process() {
                   >
                     Step {num}
                   </motion.span>
-                </motion.div>
+                </div>
 
                 {/* Title */}
-                <motion.h3
-                  className="font-display font-bold text-white text-2xl mb-4 group-hover:text-gold transition-colors duration-300"
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 1 } : {}}
-                  transition={{ delay: 0.35 + i * 0.15 }}
-                >
+                <h3 className="font-display font-bold text-white text-2xl mb-4 group-hover:text-gold transition-colors duration-300">
                   {title}
-                </motion.h3>
+                </h3>
 
                 {/* Description */}
-                <motion.p
-                  className="font-body text-prime-gray/70 text-sm leading-relaxed group-hover:text-prime-gray transition-colors duration-300"
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 1 } : {}}
-                  transition={{ delay: 0.4 + i * 0.15 }}
-                >
+                <p className="font-body text-prime-gray/70 text-sm leading-relaxed group-hover:text-prime-gray transition-colors duration-300">
                   {desc}
-                </motion.p>
+                </p>
 
-                {/* Progress indicator */}
+                {/* Progress indicator — CORRIGIDO: margem top maior para espaçar do texto */}
                 {i < steps.length - 1 && (
                   <motion.div
                     className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-gold to-gold/50"

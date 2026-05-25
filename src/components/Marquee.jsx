@@ -10,17 +10,23 @@ const logos = [
   { src: "/assets/logos/TIMAOSUMARE.png", alt: "Timão Sumaré" },
 ];
 
-const track = [...logos, ...logos];
+// Triplicamos para o loop ficar suave mesmo em telas largas
+const track = [...logos, ...logos, ...logos];
 
 export default function Marquee() {
   return (
     <div
-      className="border-y border-gold/10 bg-prime-charcoal/50 w-full py-4"
-      style={{ overflow: "hidden" }}
+      className="border-y border-gold/10 bg-prime-charcoal/50 w-full"
+      style={{
+        overflow: "hidden",
+        height: "96px",
+        display: "flex",
+        alignItems: "center",
+      }}
     >
       <div
         className="flex items-center animate-marquee"
-        style={{ width: "max-content", gap: "64px" }}
+        style={{ width: "max-content", gap: "32px" }}
       >
         {track.map(({ src, alt }, i) => (
           <img
@@ -28,20 +34,21 @@ export default function Marquee() {
             src={src}
             alt={alt}
             style={{
-              width: "400px", // largo o suficiente pro logo
-              height: "400px", // alto para compensar o espaço vazio
+              width: "320px",
+              height: "320px",
               objectFit: "contain",
               objectPosition: "center",
               filter: "grayscale(100%)",
               opacity: 0.5,
               flexShrink: 0,
-              marginTop: "-150px", // puxa pra cima, cortando o vazio
-              marginBottom: "-150px",
+              marginTop: "-120px",
+              marginBottom: "-120px",
               transition:
                 "transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease",
+              cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.15)";
+              e.currentTarget.style.transform = "scale(1.2)";
               e.currentTarget.style.filter = "grayscale(0%)";
               e.currentTarget.style.opacity = "1";
             }}
@@ -53,6 +60,14 @@ export default function Marquee() {
           />
         ))}
       </div>
+
+      {/*
+        No seu tailwind.config.js, certifique que a animação está mais rápida:
+        'marquee': 'marquee 18s linear infinite',
+        
+        Se ainda estiver lento, use inline style abaixo em vez do className:
+        style={{ animation: "marquee 18s linear infinite", width: "max-content", gap: "32px" }}
+      */}
     </div>
   );
 }
