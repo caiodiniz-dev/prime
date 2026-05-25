@@ -44,8 +44,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-prime-charcoal border-t border-gold/15 pt-16 pb-8">
-      <div className="max-w-[1280px] mx-auto px-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div className="max-w-[1280px] mx-auto px-10 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 text-center md:text-left">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-6 mb-5">
@@ -57,7 +57,7 @@ export default function Footer() {
                 />
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex justify-center md:justify-start gap-2">
               {socials.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}

@@ -16,7 +16,7 @@ const track = [...logos, ...logos];
 
 export default function Marquee() {
   return (
-    <div className="border-y border-gold/10 bg-prime-charcoal/50 py-5 overflow-hidden">
+    <div className="border-y border-gold/10 bg-prime-charcoal/50 py-4 overflow-hidden">
       <div className="flex gap-16 w-max animate-marquee items-center">
         {track.map(({ src, alt }, i) => (
           <div
@@ -26,7 +26,7 @@ export default function Marquee() {
             <img
               src={src}
               alt={alt}
-              className="w-56 h-56 object-contain filter grayscale opacity-50 group-hover:filter-none group-hover:opacity-100"
+              className="w-44 h-44 object-contain filter grayscale opacity-50 group-hover:filter-none group-hover:opacity-100"
             />
           </div>
         ))}

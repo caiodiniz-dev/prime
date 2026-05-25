@@ -169,8 +169,11 @@ export default function ScrollVideoHero() {
           ref={videoRef}
           src={VIDEO_SRC}
           muted={muted}
+          autoPlay
+          loop
           playsInline
           preload="auto"
+          poster="/logo.png"
           onLoadedMetadata={handleLoaded}
           onCanPlayThrough={handleLoaded}
           onEnded={finishIntro}
