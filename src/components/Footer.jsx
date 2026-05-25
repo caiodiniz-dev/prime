@@ -66,9 +66,9 @@ export default function Footer() {
                   rel="noreferrer"
                   aria-label={label}
                   title={label}
-                  className="w-12 h-12 border border-gold/20 flex items-center justify-center text-prime-gray font-bold text-sm hover:bg-gold hover:text-prime-black hover:border-gold transition-all duration-200"
+                  className="w-14 h-14 border border-gold/20 flex items-center justify-center text-prime-gray font-bold text-sm hover:bg-gold hover:text-prime-black hover:border-gold transition-all duration-200"
                 >
-                  <Icon size={20} />
+                  <Icon size={24} />
                 </a>
               ))}
             </div>
