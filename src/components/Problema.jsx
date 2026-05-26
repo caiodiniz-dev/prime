@@ -42,7 +42,7 @@ const problems = [
 const counters = [
   { num: "90%", label: "Das escolas sem estratégia digital" },
   { num: "3×", label: "Mais matrículas com branding forte" },
-  { num: "6mo", label: "Para se tornar referência na região" },
+  { num: "6 meses", label: "Para se tornar referência na região" }, // Alterado de '6mo' para '6 meses'
   { num: "0", label: "Tolerância ao conteúdo genérico" },
 ];
 
@@ -97,7 +97,7 @@ export default function ProblemSection() {
           >
             Sua escola merece mais
             <br />
-            do que um <em className="text-gold">post genérico.</em>
+            do que um <em className="text-gold not-italic">post genérico.</em>
           </motion.h2>
 
           <motion.p
@@ -176,7 +176,7 @@ export default function ProblemSection() {
                 <div className="w-10 h-10 md:w-12 md:h-12 border border-gold/25 bg-gold/5 flex items-center justify-center text-gold flex-shrink-0 group-hover:bg-gold/10 group-hover:border-gold/40 transition-all duration-300">
                   <Icon size={20} />
                 </div>
-                <span className="inline-block font-body font-bold text-[9px] tracking-[2.5px] uppercase text-gold bg-gold/8 border border-gold/20 px-2.5 py-1 mt-1">
+                <span className="inline-flex items-center justify-center font-display font-bold text-[13px] tracking-[1px] text-gold bg-gold/[0.03] border border-gold/30 px-3 py-1.5 min-w-[48px] h-[32px] mt-1 select-none">
                   {num}
                 </span>
               </div>

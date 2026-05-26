@@ -3,7 +3,6 @@ import {
   motion,
   AnimatePresence,
   useMotionValue,
-  useTransform,
   animate,
 } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -126,9 +125,9 @@ function MediaCard({ item, onClick, isCenter }) {
   return (
     <motion.div
       onClick={onClick}
-      animate={{ scale: isCenter ? 1 : 0.92, opacity: isCenter ? 1 : 0.55 }}
-      transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative overflow-hidden cursor-pointer group flex-shrink-0"
+      animate={{ scale: isCenter ? 1 : 0.94, opacity: isCenter ? 1 : 0.65 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden cursor-pointer group flex-shrink-0 rounded-sm select-none"
       style={{ width: `${CARD_W}px`, height: "420px" }}
     >
       {/* Gradient BG */}
@@ -139,7 +138,7 @@ function MediaCard({ item, onClick, isCenter }) {
         <img
           src={item.imageUrl || item.photoUrl}
           alt={item.title}
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-102 transition-transform duration-700 ease-out"
         />
       )}
 
@@ -169,11 +168,7 @@ function MediaCard({ item, onClick, isCenter }) {
       </div>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-prime-black/90 via-prime-black/20 to-transparent" />
-
-      {/* Corner marks */}
-      <div className="corner-tl" />
-      <div className="corner-br" />
+      <div className="absolute inset-0 bg-gradient-to-t from-prime-black/95 via-prime-black/30 to-transparent" />
 
       {/* Play button */}
       {isVideo && (
@@ -252,12 +247,13 @@ function MediaCard({ item, onClick, isCenter }) {
 }
 
 function Carousel({ items }) {
-  const [current, setCurrent] = useState(0);
+  // Define dinamicamente o index central da lista atual
+  const initialCenterIndex = Math.floor(items.length / 2);
+  const [current, setCurrent] = useState(initialCenterIndex);
+
   const x = useMotionValue(0);
   const containerRef = useRef(null);
   const [containerW, setContainerW] = useState(0);
-  const isDragging = useRef(false);
-  const dragStartX = useRef(0);
 
   useEffect(() => {
     const measure = () => {
@@ -268,7 +264,6 @@ function Carousel({ items }) {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  // offset so current card is always centered
   const getOffset = (idx) => {
     const center = containerW / 2 - CARD_W / 2;
     return center - idx * CARD_STEP;
@@ -279,34 +274,28 @@ function Carousel({ items }) {
     setCurrent(clamped);
     animate(x, getOffset(clamped), {
       type: "spring",
-      stiffness: 300,
-      damping: 35,
+      stiffness: 260,
+      damping: 28,
+      mass: 0.8,
     });
   };
 
-  // Init and on items/containerW change
+  // Garante que ao mudar de aba ou redimensionar a tela, comece centralizado no meio
   useEffect(() => {
-    x.set(getOffset(Math.min(current, items.length - 1)));
-    setCurrent(Math.min(current, items.length - 1));
+    const targetIndex = Math.floor(items.length / 2);
+    setCurrent(targetIndex);
+    x.set(getOffset(targetIndex));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length, containerW]);
 
-  const handleDragStart = (_, info) => {
-    isDragging.current = false;
-    dragStartX.current = info.point.x;
-  };
-
   const handleDragEnd = (_, info) => {
-    const diff = info.offset.x;
-    if (Math.abs(diff) > 40) {
-      goTo(diff < 0 ? current + 1 : current - 1);
+    const threshold = 50;
+    if (info.offset.x < -threshold) {
+      goTo(current + 1);
+    } else if (info.offset.x > threshold) {
+      goTo(current - 1);
     } else {
-      // snap back
-      animate(x, getOffset(current), {
-        type: "spring",
-        stiffness: 300,
-        damping: 35,
-      });
+      goTo(current);
     }
   };
 
@@ -316,7 +305,7 @@ function Carousel({ items }) {
       <button
         onClick={() => goTo(current - 1)}
         disabled={current === 0}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-prime-charcoal2/90 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 shadow-xl backdrop-blur-sm"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-prime-charcoal2/90 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black disabled:opacity-10 disabled:cursor-not-allowed transition-all duration-300 shadow-xl backdrop-blur-sm rounded-none"
         aria-label="Anterior"
       >
         <ChevronLeft size={20} />
@@ -326,28 +315,26 @@ function Carousel({ items }) {
       <button
         onClick={() => goTo(current + 1)}
         disabled={current === items.length - 1}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-prime-charcoal2/90 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 shadow-xl backdrop-blur-sm"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-prime-charcoal2/90 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black disabled:opacity-10 disabled:cursor-not-allowed transition-all duration-300 shadow-xl backdrop-blur-sm rounded-none"
         aria-label="Próximo"
       >
         <ChevronRight size={20} />
       </button>
 
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-prime-black to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-prime-black to-transparent pointer-events-none" />
-
-      {/* Track */}
-      <div className="overflow-hidden" style={{ height: "440px" }}>
+      {/* Track Container (Sem as divs de sombra lateral para máxima fluidez visual) */}
+      <div
+        className="overflow-hidden relative w-full"
+        style={{ height: "440px" }}
+      >
         <motion.div
-          className="flex items-center gap-5 absolute"
+          className="flex items-center gap-5 absolute cursor-grab active:cursor-grabbing"
           style={{ x, top: 0, bottom: 0, alignItems: "center" }}
           drag="x"
           dragConstraints={{
-            left: getOffset(items.length - 1) - 40,
-            right: getOffset(0) + 40,
+            left: getOffset(items.length - 1) - 100,
+            right: getOffset(0) + 100,
           }}
-          dragElastic={0.08}
-          onDragStart={handleDragStart}
+          dragElastic={0.15}
           onDragEnd={handleDragEnd}
         >
           {items.map((item, i) => (
@@ -402,7 +389,7 @@ export default function Portfolio() {
 
   return (
     <section id="projetos" className="py-28 bg-prime-black overflow-hidden">
-      <div className="max-w-[1280px] mx-auto px-10">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div>
@@ -423,7 +410,7 @@ export default function Portfolio() {
             >
               Conteúdo que
               <br />
-              <em className="text-gold">conecta e converte.</em>
+              <em className="text-gold not-italic">conecta e converte.</em>
             </motion.h2>
 
             {/* Tabs */}
