@@ -8,7 +8,7 @@ export default function CTA() {
   return (
     <section
       id="contato"
-      className="py-32 bg-prime-black relative overflow-hidden text-center"
+      className="py-24 md:py-32 bg-prime-black relative overflow-hidden text-center"
     >
       {/* Animated background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -27,7 +27,6 @@ export default function CTA() {
             backgroundSize: "60px 60px",
           }}
         />
-        {/* Animated gold lines */}
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
@@ -48,11 +47,11 @@ export default function CTA() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-10" ref={ref}>
+      <div className="relative z-10 max-w-4xl mx-auto px-5 md:px-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="section-label justify-center mb-8"
+          className="section-label justify-center mb-6 md:mb-8"
         >
           Vamos Conversar?
         </motion.div>
@@ -65,8 +64,8 @@ export default function CTA() {
             duration: 0.9,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
-          className="font-display font-black text-white leading-[1.02] mb-7"
-          style={{ fontSize: "clamp(38px, 5vw, 68px)" }}
+          className="font-display font-black text-white leading-[1.02] mb-6 md:mb-7"
+          style={{ fontSize: "clamp(32px, 5vw, 68px)" }}
         >
           Sua escola merece
           <br />
@@ -77,23 +76,23 @@ export default function CTA() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2 }}
-          className="font-body text-prime-gray text-[16px] leading-relaxed max-w-xl mx-auto mb-12"
+          className="font-body text-prime-gray text-[14px] md:text-[16px] leading-relaxed max-w-xl mx-auto mb-10 md:mb-12"
         >
-          Agende uma reunião sem compromisso. Mostramos o que a Prime pode fazer
-          pela sua escola de futebol em 90 dias.
+          Agende uma reunião sem compromisso. Mostramos exatamente o que a Prime
+          pode fazer pela sua escola de futebol nos primeiros 90 dias.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap gap-5 justify-center mb-20"
+          className="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center mb-16 md:mb-20"
         >
           <a
             href="https://wa.me/5519997752403"
             target="_blank"
             rel="noreferrer"
-            className="btn-prime text-[13px] px-10 py-5"
+            className="btn-prime text-[12px] md:text-[13px] px-8 md:px-10 py-4 md:py-5 justify-center"
           >
             <span>Agendar Reunião Gratuita</span>
             <ArrowRight size={16} className="relative z-10" />
@@ -102,7 +101,7 @@ export default function CTA() {
             href="https://wa.me/5519997752403"
             target="_blank"
             rel="noreferrer"
-            className="btn-outline py-5"
+            className="btn-outline py-4 md:py-5 justify-center"
           >
             WhatsApp Direto
             <ArrowRight size={14} />
@@ -114,21 +113,21 @@ export default function CTA() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-12 border-t border-white/6"
+          className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8 pt-10 md:pt-12 border-t border-white/6"
         >
           {[
             {
-              icon: <Mail size={16} />,
+              icon: <Mail size={15} />,
               label: "E-mail Corporativo",
               value: "contato@agenciaprimefootball.com.br",
             },
             {
-              icon: <MapPin size={16} />,
+              icon: <MapPin size={15} />,
               label: "Localização",
               value: "Campinas — São Paulo",
             },
             {
-              icon: <Instagram size={16} />,
+              icon: <Instagram size={15} />,
               label: "Instagram Oficial",
               value: "@agenciaprimefootball",
             },
@@ -137,17 +136,14 @@ export default function CTA() {
               key={label}
               className="flex items-center gap-3 text-prime-gray-light group"
             >
-              <div
-                className="w-10 h-10 border border-gold/20 bg-gold/5 flex items-center justify-center text-gold
-                              group-hover:bg-gold/10 group-hover:border-gold/40 transition-all duration-200"
-              >
+              <div className="w-9 h-9 md:w-10 md:h-10 border border-gold/20 bg-gold/5 flex items-center justify-center text-gold group-hover:bg-gold/10 group-hover:border-gold/40 transition-all duration-200">
                 {icon}
               </div>
               <div className="text-left">
-                <strong className="block font-body font-semibold text-[13px] text-white">
+                <strong className="block font-body font-bold text-[12px] md:text-[13px] text-white">
                   {value}
                 </strong>
-                <span className="block font-body text-[10px] text-prime-gray tracking-[0.5px]">
+                <span className="block font-body text-[9px] md:text-[10px] text-prime-gray tracking-[0.5px]">
                   {label}
                 </span>
               </div>

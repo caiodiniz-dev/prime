@@ -5,22 +5,22 @@ const steps = [
   {
     num: "01",
     title: "Diagnóstico",
-    desc: "Análise profunda da marca, posicionamento atual, concorrência e público. Entendemos o jogo antes de entrar em campo.",
+    desc: "Análise profunda da marca, posicionamento atual, concorrência local e público-alvo. Entendemos o jogo antes de entrar em campo — sem palpites, só estratégia.",
   },
   {
     num: "02",
     title: "Estratégia",
-    desc: "Planejamento editorial, identidade visual adaptada e calendário de conteúdo com foco em captação e autoridade.",
+    desc: "Planejamento editorial personalizado, identidade visual adaptada ao clube e calendário de conteúdo com foco em captação de alunos e autoridade de marca.",
   },
   {
     num: "03",
     title: "Produção",
-    desc: "Captação em campo, edição de vídeo premium, design de peças e copy que conecta emocionalmente — sem clichês.",
+    desc: "Captação presencial em campo, edição de vídeo premium, design de peças gráficas e copy que conecta emocionalmente com famílias e atletas — sem clichês.",
   },
   {
     num: "04",
     title: "Resultado",
-    desc: "Publicação com aprovação do CEO, monitoramento de métricas e otimização constante para crescimento previsível.",
+    desc: "Publicação com aprovação do responsável, monitoramento de métricas em tempo real e otimização constante para garantir crescimento previsível todo mês.",
   },
 ];
 
@@ -28,8 +28,8 @@ export default function Process() {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section className="py-32 bg-prime-charcoal relative overflow-hidden">
-      {/* Animated background elements */}
+    <section className="py-24 md:py-32 bg-prime-charcoal relative overflow-hidden">
+      {/* Animated background orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute -top-40 right-0 w-96 h-96 rounded-full bg-gold/10 blur-[100px]"
@@ -50,8 +50,11 @@ export default function Process() {
 
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
 
-      <div className="max-w-[1280px] mx-auto px-10 relative z-10" ref={ref}>
-        <div className="text-center mb-24">
+      <div
+        className="max-w-[1280px] mx-auto px-5 md:px-10 relative z-10"
+        ref={ref}
+      >
+        <div className="text-center mb-16 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -64,7 +67,7 @@ export default function Process() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
             className="font-display font-bold text-white"
-            style={{ fontSize: "clamp(32px, 4vw, 56px)" }}
+            style={{ fontSize: "clamp(28px, 4vw, 56px)" }}
           >
             Método <em className="text-gold">Prime</em> em ação
           </motion.h2>
@@ -72,17 +75,16 @@ export default function Process() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 }}
-            className="font-body text-prime-gray text-[16px] max-w-3xl mx-auto mt-6 leading-relaxed"
+            className="font-body text-prime-gray text-[14px] md:text-[16px] max-w-3xl mx-auto mt-5 md:mt-6 leading-relaxed"
           >
-            Cada passo é pensado para transformar clubes, marcas e times em
-            referências memoráveis. Criamos estratégia, narrativa e entrega com
-            o timing certo para a torcida e o mercado — sempre sem cortes e com
-            excelência absoluta em cada frame.
+            Cada etapa foi construída para transformar escolas e times em marcas
+            memoráveis. Criamos estratégia, narrativa e entrega com o timing
+            certo — sempre sem cortes e com excelência absoluta em cada frame.
           </motion.p>
         </div>
 
-        <div className="relative grid grid-cols-1 gap-6 lg:grid-cols-4">
-          {/* Animated connecting line */}
+        <div className="relative grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-4">
+          {/* Animated connecting line — desktop only */}
           <motion.div
             className="absolute top-32 left-1/2 h-px w-full bg-gradient-to-r from-gold/10 via-gold/50 to-gold/10 hidden lg:block"
             initial={{ opacity: 0, scaleX: 0 }}
@@ -98,17 +100,12 @@ export default function Process() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3 + i * 0.15, duration: 0.8 }}
               whileHover={{ y: -12, transition: { duration: 0.3 } }}
-              className={`relative overflow-hidden rounded-[24px] border border-gold/10 bg-gradient-to-br from-prime-charcoal2 to-prime-black p-8 text-left transition-all duration-500 hover:border-gold/50 hover:bg-gradient-to-br hover:from-prime-charcoal2 hover:to-prime-charcoal group ${
+              className={`relative overflow-hidden rounded-[20px] md:rounded-[24px] border border-gold/10 bg-gradient-to-br from-prime-charcoal2 to-prime-black p-6 md:p-8 text-left transition-all duration-500 hover:border-gold/50 group ${
                 i % 2 === 1 ? "lg:mt-16" : ""
               }`}
             >
-              {/* Animated gradient background on hover */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold/0 rounded-[24px] group-hover:from-gold/5 group-hover:to-gold/0"
-                transition={{ duration: 0.5 }}
-              />
+              <motion.div className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold/0 rounded-[24px] group-hover:from-gold/5 group-hover:to-gold/0 transition-all duration-500" />
 
-              {/* Floating background orbs */}
               <motion.div
                 className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gold/20 blur-2xl opacity-0 group-hover:opacity-100"
                 animate={{ scale: [1, 1.2, 1], opacity: [0, 0.1, 0] }}
@@ -116,8 +113,7 @@ export default function Process() {
               />
 
               <div className="relative z-10">
-                {/* Number with animation */}
-                <div className="mb-6 flex items-center justify-between gap-4">
+                <div className="mb-5 md:mb-6 flex items-center justify-between gap-4">
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 12 }}
                     whileTap={{ scale: 0.95 }}
@@ -130,7 +126,7 @@ export default function Process() {
                         ease: "easeInOut",
                       },
                     }}
-                    className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold text-2xl font-display font-bold group-hover:border-gold/80 group-hover:bg-gold/20 transition-all duration-300"
+                    className="flex h-13 w-13 md:h-16 md:w-16 items-center justify-center rounded-2xl border-2 border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold text-xl md:text-2xl font-display font-bold group-hover:border-gold/80 group-hover:bg-gold/20 transition-all duration-300"
                   >
                     {num}
                   </motion.div>
@@ -139,23 +135,20 @@ export default function Process() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ delay: 0.4 + i * 0.12 }}
-                    className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-[11px] uppercase tracking-[2px] text-gold/90 font-semibold group-hover:border-gold/70 group-hover:bg-gold/20 transition-all duration-300"
+                    className="rounded-full border border-gold/30 bg-gold/10 px-2.5 md:px-3 py-1 md:py-1.5 text-[10px] md:text-[11px] uppercase tracking-[2px] text-gold/90 font-semibold group-hover:border-gold/70 group-hover:bg-gold/20 transition-all duration-300"
                   >
                     Step {num}
                   </motion.span>
                 </div>
 
-                {/* Title */}
-                <h3 className="font-display font-bold text-white text-2xl mb-4 group-hover:text-gold transition-colors duration-300">
+                <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 md:mb-4 group-hover:text-gold transition-colors duration-300">
                   {title}
                 </h3>
 
-                {/* Description */}
-                <p className="font-body text-prime-gray/70 text-sm leading-relaxed group-hover:text-prime-gray transition-colors duration-300">
+                <p className="font-body text-prime-gray/70 text-[12px] md:text-sm leading-relaxed group-hover:text-prime-gray transition-colors duration-300">
                   {desc}
                 </p>
 
-                {/* Progress indicator — CORRIGIDO: margem top maior para espaçar do texto */}
                 {i < steps.length - 1 && (
                   <motion.div
                     className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-gold to-gold/50"

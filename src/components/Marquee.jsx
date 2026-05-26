@@ -1,3 +1,6 @@
+// Marquee.jsx — Prime Company
+// Mobile-otimizado: logos responsivos, fades nas bordas, hover colorido
+
 const logos = [
   { src: "/assets/logos/ALCATEIACEVISA.png", alt: "Alcateia Cevisa" },
   { src: "/assets/logos/CAPAWANDERSSON.png", alt: "Capa Wandersson" },
@@ -10,23 +13,40 @@ const logos = [
   { src: "/assets/logos/TIMAOSUMARE.png", alt: "Timão Sumaré" },
 ];
 
-// Triplicamos para o loop ficar suave mesmo em telas largas
+// Triplicamos para o loop ser suave mesmo em telas largas
 const track = [...logos, ...logos, ...logos];
 
 export default function Marquee() {
   return (
     <div
-      className="border-y border-gold/10 bg-prime-charcoal/50 w-full"
+      className="border-y border-gold/10 bg-prime-charcoal/50 w-full relative"
       style={{
         overflow: "hidden",
-        height: "96px",
+        height: "72px",
         display: "flex",
         alignItems: "center",
       }}
     >
+      {/* Fade esquerda */}
+      <div
+        className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
+        style={{
+          width: "56px",
+          background: "linear-gradient(to right, #0A0A0A, transparent)",
+        }}
+      />
+      {/* Fade direita */}
+      <div
+        className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
+        style={{
+          width: "56px",
+          background: "linear-gradient(to left, #0A0A0A, transparent)",
+        }}
+      />
+
       <div
         className="flex items-center animate-marquee"
-        style={{ width: "max-content", gap: "32px" }}
+        style={{ width: "max-content", gap: "clamp(16px, 4vw, 32px)" }}
       >
         {track.map(({ src, alt }, i) => (
           <img
@@ -34,40 +54,49 @@ export default function Marquee() {
             src={src}
             alt={alt}
             style={{
-              width: "320px",
-              height: "320px",
+              width: "clamp(120px, 18vw, 240px)",
+              height: "clamp(120px, 18vw, 240px)",
               objectFit: "contain",
               objectPosition: "center",
               filter: "grayscale(100%)",
-              opacity: 0.5,
+              opacity: 0.45,
               flexShrink: 0,
-              marginTop: "-120px",
-              marginBottom: "-120px",
+              /* Centraliza verticalmente sem transbordar a div */
+              marginTop: "calc((clamp(120px, 18vw, 240px) - 72px) / -2)",
+              marginBottom: "calc((clamp(120px, 18vw, 240px) - 72px) / -2)",
               transition:
                 "transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease",
-              cursor: "pointer",
+              cursor: "default",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.2)";
+              e.currentTarget.style.transform = "scale(1.15)";
               e.currentTarget.style.filter = "grayscale(0%)";
               e.currentTarget.style.opacity = "1";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
               e.currentTarget.style.filter = "grayscale(100%)";
-              e.currentTarget.style.opacity = "0.5";
+              e.currentTarget.style.opacity = "0.45";
             }}
           />
         ))}
       </div>
-
-      {/*
-        No seu tailwind.config.js, certifique que a animação está mais rápida:
-        'marquee': 'marquee 18s linear infinite',
-        
-        Se ainda estiver lento, use inline style abaixo em vez do className:
-        style={{ animation: "marquee 18s linear infinite", width: "max-content", gap: "32px" }}
-      */}
     </div>
   );
 }
+
+/*
+  ── tailwind.config.js ───────────────────────────────────────────────────────
+  Adicione/confirme em theme.extend:
+
+  animation: {
+    marquee: "marquee 22s linear infinite",
+  },
+  keyframes: {
+    marquee: {
+      from: { transform: "translateX(0)" },
+      to:   { transform: "translateX(-33.333%)" },  // 1/3 do track triplicado
+    },
+  },
+  ─────────────────────────────────────────────────────────────────────────────
+*/

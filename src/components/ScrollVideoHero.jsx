@@ -9,7 +9,7 @@ const stats = [
   { num: "10+", label: "Clientes Ativos" },
   { num: "200+", label: "Peças/Mês" },
   { num: "6", label: "Anos de Mercado" },
-  { num: "2B", label: "bilhões de views geradas" },
+  { num: "2B+", label: "Views Geradas" },
 ];
 
 // phase: 'idle' | 'playing' | 'done'
@@ -154,6 +154,7 @@ export default function ScrollVideoHero() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
+      {/* Video background */}
       <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
@@ -183,6 +184,7 @@ export default function ScrollVideoHero() {
         />
       </div>
 
+      {/* Loading screen */}
       <AnimatePresence>
         {!videoReady && (
           <motion.div
@@ -200,17 +202,17 @@ export default function ScrollVideoHero() {
               }}
             />
             <motion.div
-              className="w-48 h-48 border border-gold/30 rounded-full flex items-center justify-center"
+              className="w-36 h-36 md:w-48 md:h-48 border border-gold/30 rounded-full flex items-center justify-center"
               animate={{ rotate: 360 }}
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
             >
               <motion.div
-                className="w-36 h-36 border border-gold/15 rounded-full flex items-center justify-center"
+                className="w-24 h-24 md:w-36 md:h-36 border border-gold/15 rounded-full flex items-center justify-center"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
               >
                 <motion.span
-                  className="font-display font-black text-5xl text-gold/50"
+                  className="font-display font-black text-4xl md:text-5xl text-gold/50"
                   animate={{
                     opacity: [0.4, 1, 0.4],
                     scale: [0.95, 1.05, 0.95],
@@ -225,6 +227,7 @@ export default function ScrollVideoHero() {
         )}
       </AnimatePresence>
 
+      {/* Progress bar */}
       <AnimatePresence>
         {isPlaying && (
           <motion.div
@@ -242,6 +245,7 @@ export default function ScrollVideoHero() {
         )}
       </AnimatePresence>
 
+      {/* Mute button */}
       <AnimatePresence>
         {videoReady && (
           <motion.button
@@ -250,38 +254,39 @@ export default function ScrollVideoHero() {
             exit={{ opacity: 0, x: 20 }}
             transition={{ delay: 0.6, duration: 0.5 }}
             onClick={toggleMute}
-            className="absolute top-24 right-8 z-30 w-11 h-11 border border-white/20 bg-prime-black/40 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-200 group"
+            className="absolute top-20 md:top-24 right-4 md:right-8 z-30 w-10 h-10 md:w-11 md:h-11 border border-white/20 bg-prime-black/40 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-200 group"
             aria-label={muted ? "Ativar som" : "Silenciar"}
-            title={muted ? "Ativar som" : "Silenciar"}
           >
             <motion.div whileTap={{ scale: 0.85 }}>
               {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
             </motion.div>
-            <span className="absolute right-14 bg-prime-black/80 text-white/70 text-[10px] tracking-wider px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+            <span className="absolute right-12 bg-prime-black/80 text-white/70 text-[10px] tracking-wider px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none hidden md:block">
               {muted ? "Ativar som" : "Silenciar"}
             </span>
           </motion.button>
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 h-full flex flex-col justify-center max-w-[1280px] mx-auto px-10 pt-20">
+      {/* Hero content */}
+      <div className="relative z-10 h-full flex flex-col justify-center max-w-[1280px] mx-auto px-5 md:px-10 pt-20">
         <motion.div
           variants={container}
           initial="hidden"
           animate={videoReady ? "visible" : "hidden"}
           className="max-w-3xl"
         >
+          {/* Badge */}
           <motion.div
             variants={item}
-            className="inline-flex items-center gap-2.5 bg-gold/10 border border-gold/30 px-4 py-2 mb-8 backdrop-blur-sm"
+            className="inline-flex items-center gap-2.5 bg-gold/10 border border-gold/30 px-3 md:px-4 py-2 mb-6 md:mb-8 backdrop-blur-sm"
           >
             <motion.span
               className="w-1.5 h-1.5 rounded-full bg-gold"
               animate={{ opacity: [1, 0.2, 1], scale: [1, 0.6, 1] }}
               transition={{ duration: 1.8, repeat: Infinity }}
             />
-            <span className="font-body font-semibold text-[10px] tracking-[3px] uppercase text-gold">
-              Campinas, São Paulo · Atuação nacional
+            <span className="font-body font-semibold text-[9px] md:text-[10px] tracking-[2px] md:tracking-[3px] uppercase text-gold">
+              Campinas, São Paulo · Atuação Nacional
             </span>
             <motion.span
               className="w-1.5 h-1.5 rounded-full bg-gold/40"
@@ -290,30 +295,34 @@ export default function ScrollVideoHero() {
             />
           </motion.div>
 
+          {/* Title */}
           <motion.h1
             variants={item}
-            className="font-display font-black leading-[1.03] mb-6 text-white"
-            style={{ fontSize: "clamp(46px, 5.8vw, 86px)" }}
+            className="font-display font-black leading-[1.03] mb-5 md:mb-6 text-white"
+            style={{ fontSize: "clamp(38px, 5.8vw, 86px)" }}
           >
             Seja lembrado.
             <br />
-            <span className="text-gold">Seja Prime</span>
+            <span className="text-gold italic">Seja Prime.</span>
           </motion.h1>
 
+          {/* Tagline */}
           <motion.p
             variants={item}
-            className="font-accent font-light italic text-white/70 text-xl leading-relaxed border-l-2 border-gold pl-5 mb-10 max-w-xl"
+            className="font-accent font-light italic text-white/70 text-base md:text-xl leading-relaxed border-l-2 border-gold pl-4 md:pl-5 mb-8 md:mb-10 max-w-xl"
           >
-            A presença digital que sua marca merece.
+            Marketing especializado em futebol. Do CT à família: posicionamento,
+            conteúdo e captação que geram resultado previsível.
           </motion.p>
 
+          {/* CTAs */}
           <motion.div
             variants={item}
-            className="flex flex-wrap items-center gap-5 mb-14"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-5 mb-10 md:mb-14"
           >
             <motion.a
               href="#projetos"
-              className="btn-prime"
+              className="btn-prime w-full sm:w-auto justify-center"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -324,7 +333,7 @@ export default function ScrollVideoHero() {
               href="https://wa.me/5519997752403"
               target="_blank"
               rel="noreferrer"
-              className="btn-outline"
+              className="btn-outline w-full sm:w-auto justify-center"
               whileHover={{ scale: 1.02, borderColor: "rgba(201,168,76,0.6)" }}
               whileTap={{ scale: 0.98 }}
             >
@@ -333,9 +342,10 @@ export default function ScrollVideoHero() {
             </motion.a>
           </motion.div>
 
+          {/* Stats — 2 cols mobile, 4 cols desktop */}
           <motion.div
             variants={item}
-            className="grid grid-cols-4 gap-6 pt-6 border-t border-white/10 max-w-xl"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-5 md:pt-6 border-t border-white/10 max-w-xl"
           >
             {stats.map(({ num, label }, i) => (
               <motion.div
@@ -345,7 +355,7 @@ export default function ScrollVideoHero() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <motion.span
-                  className="block font-display font-bold text-2xl text-gold leading-none mb-1"
+                  className="block font-display font-bold text-xl md:text-2xl text-gold leading-none mb-1"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={videoReady ? { opacity: 1, scale: 1 } : {}}
                   transition={{
@@ -356,7 +366,7 @@ export default function ScrollVideoHero() {
                 >
                   {num}
                 </motion.span>
-                <span className="block font-body text-[9px] font-semibold tracking-[1.5px] uppercase text-white/40">
+                <span className="block font-body text-[8px] md:text-[9px] font-semibold tracking-[1.5px] uppercase text-white/40">
                   {label}
                 </span>
               </motion.div>
@@ -365,8 +375,7 @@ export default function ScrollVideoHero() {
         </motion.div>
       </div>
 
-      {/* ===== INDICADORES INFERIORES — todos centralizados ===== */}
-
+      {/* Scroll indicators */}
       <AnimatePresence>
         {phase === "idle" && videoReady && (
           <motion.div
@@ -437,7 +446,6 @@ export default function ScrollVideoHero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            /* CORRIGIDO: inset-x-0 + items-center para centralizar */
             className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-2 z-20 pointer-events-none"
           >
             <motion.div

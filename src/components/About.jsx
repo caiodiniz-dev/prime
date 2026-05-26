@@ -35,7 +35,7 @@ export default function About() {
   return (
     <section
       id="sobre"
-      className="py-28 bg-prime-black relative overflow-hidden"
+      className="py-20 md:py-28 bg-prime-black relative overflow-hidden"
     >
       {/* Background accent */}
       <div
@@ -46,7 +46,7 @@ export default function About() {
         }}
       />
 
-      <div className="max-w-[1280px] mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-24 items-center">
         {/* LEFT — Visual */}
         <motion.div
           ref={ref}
@@ -59,33 +59,32 @@ export default function About() {
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-5 -left-5 z-20 flex items-center gap-2.5 bg-prime-charcoal2/95 border border-gold/20 px-4 py-3"
+            className="absolute -top-4 -left-4 md:-top-5 md:-left-5 z-20 flex items-center gap-2.5 bg-prime-charcoal2/95 border border-gold/20 px-3 md:px-4 py-2.5 md:py-3"
           >
-            <MapPin size={16} className="text-gold" />
+            <MapPin size={15} className="text-gold" />
             <div>
-              <strong className="block font-body font-bold text-[12px] text-white">
+              <strong className="block font-body font-bold text-[11px] md:text-[12px] text-white">
                 Campinas, São Paulo
               </strong>
-              <span className="block font-body text-[9px] tracking-[1px] uppercase text-prime-gray">
+              <span className="block font-body text-[8px] md:text-[9px] tracking-[1px] uppercase text-prime-gray">
                 Atuação nacional
               </span>
             </div>
           </motion.div>
 
-          {/* Main visual frame — CORRIGIDO: overlay reduzido para imagem aparecer */}
+          {/* Main visual frame */}
           <div className="relative aspect-[4/5] bg-prime-charcoal2 border border-gold/10 overflow-hidden">
             <img
               src="/dist/assets/prime.jpeg"
-              alt="Prime visual"
+              alt="Prime Company em campo"
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: "center top" }}
             />
-            {/* Overlay mais sutil para a imagem aparecer */}
             <div className="absolute inset-0 bg-prime-black/30" />
 
-            {/* Rings decorativos — menos opacos para não tapar a foto */}
+            {/* Rings decorativos */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="relative w-48 h-48">
+              <div className="relative w-40 h-40 md:w-48 md:h-48">
                 <motion.div
                   className="absolute inset-0 rounded-full border border-white/8"
                   animate={{ rotate: 360 }}
@@ -133,7 +132,6 @@ export default function About() {
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Gradient bottom para texto */}
             <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-prime-black/60 to-transparent" />
           </div>
 
@@ -142,13 +140,13 @@ export default function About() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.4 }}
-            className="absolute -bottom-5 -right-5 z-20 bg-gold px-6 py-5 w-44"
+            className="absolute -bottom-4 -right-4 md:-bottom-5 md:-right-5 z-20 bg-gold px-5 md:px-6 py-4 md:py-5 w-36 md:w-44"
           >
-            <span className="block font-display font-black text-4xl text-prime-black leading-none">
-              2B
+            <span className="block font-display font-black text-3xl md:text-4xl text-prime-black leading-none">
+              2B+
             </span>
-            <span className="block font-body font-bold text-[9px] tracking-[2px] uppercase text-prime-black/60 mt-1.5">
-              bilhões de views
+            <span className="block font-body font-bold text-[8px] md:text-[9px] tracking-[2px] uppercase text-prime-black/60 mt-1">
+              views geradas
             </span>
           </motion.div>
         </motion.div>
@@ -167,8 +165,8 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={inViewRight ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="font-display font-bold text-white leading-[1.05] mb-7"
-            style={{ fontSize: "clamp(32px, 3.5vw, 52px)" }}
+            className="font-display font-bold text-white leading-[1.05] mb-6 md:mb-7"
+            style={{ fontSize: "clamp(28px, 3.5vw, 52px)" }}
           >
             Não operamos
             <br />
@@ -180,42 +178,43 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={inViewRight ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 }}
-            className="font-body text-[15px] text-prime-gray-light leading-relaxed mb-5"
+            className="font-body text-[14px] md:text-[15px] text-prime-gray-light leading-relaxed mb-5"
           >
             A Prime Company é uma agência especializada em marketing esportivo
             para CT's, CFA's e Escolas de Futebol, sediada em Campinas-SP. Não
             vendemos serviços avulsos — construímos um ecossistema integrado de
-            social mídia, tráfego, posicionamento e branding.
+            social mídia, tráfego pago, posicionamento e branding que gera
+            resultado mensurável e previsível para o seu clube.
           </motion.p>
 
           <motion.blockquote
             initial={{ opacity: 0, x: -20 }}
             animate={inViewRight ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="font-accent italic text-gold-light text-xl leading-relaxed border-l-2 border-gold pl-5 my-7"
+            className="font-accent italic text-gold-light text-lg md:text-xl leading-relaxed border-l-2 border-gold pl-4 md:pl-5 my-6 md:my-7"
           >
             "Cada peça gráfica carrega a responsabilidade de representar uma
             escola, o sonho de um atleta e a total confiança de uma família."
           </motion.blockquote>
 
           {/* Pillars */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
             {pillars.map(({ icon: Icon, title, sub }, i) => (
               <motion.div
                 key={title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inViewRight ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + i * 0.08 }}
-                className="flex items-start gap-3 group"
+                className="flex items-start gap-2 md:gap-3 group"
               >
-                <div className="w-9 h-9 border border-gold/30 flex items-center justify-center text-base flex-shrink-0 bg-gold/5 group-hover:bg-gold/10 transition-colors duration-200">
-                  <Icon size={17} className="text-gold" />
+                <div className="w-8 h-8 md:w-9 md:h-9 border border-gold/30 flex items-center justify-center text-base flex-shrink-0 bg-gold/5 group-hover:bg-gold/10 transition-colors duration-200">
+                  <Icon size={15} className="text-gold" />
                 </div>
                 <div>
-                  <strong className="block font-body font-bold text-[13px] text-white">
+                  <strong className="block font-body font-bold text-[12px] md:text-[13px] text-white">
                     {title}
                   </strong>
-                  <span className="block font-body text-[12px] text-prime-gray mt-0.5">
+                  <span className="block font-body text-[11px] md:text-[12px] text-prime-gray mt-0.5">
                     {sub}
                   </span>
                 </div>

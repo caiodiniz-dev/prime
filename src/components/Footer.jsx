@@ -43,21 +43,29 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-prime-charcoal border-t border-gold/15 pt-16 pb-8">
-      <div className="max-w-[1280px] mx-auto px-10 text-center md:text-left">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 text-center md:text-left">
+    <footer className="bg-prime-charcoal border-t border-gold/15 pt-12 md:pt-16 pb-8">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-10">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-12">
           {/* Brand */}
-          <div>
-            <div className="flex items-center gap-6 mb-5">
-              <div className="w-24 h-24 overflow-hidden flex items-center justify-center flex-shrink-0">
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-4 mb-4 md:mb-5">
+              <div className="w-16 h-16 md:w-24 md:h-24 overflow-hidden flex items-center justify-center flex-shrink-0">
                 <img
                   src="/logo.png"
-                  alt="Prime logo"
+                  alt="Prime Company"
                   className="w-full h-full object-contain"
                 />
               </div>
+              <div>
+                <span className="block font-display font-bold text-lg text-white">
+                  Prime <span className="text-gold">Company</span>
+                </span>
+                <span className="block font-body text-[10px] tracking-[1.5px] uppercase text-prime-gray mt-1">
+                  Campinas · SP
+                </span>
+              </div>
             </div>
-            <div className="flex justify-center md:justify-start gap-3">
+            <div className="flex gap-3 mt-4">
               {socials.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
@@ -66,9 +74,9 @@ export default function Footer() {
                   rel="noreferrer"
                   aria-label={label}
                   title={label}
-                  className="w-14 h-14 border border-gold/20 flex items-center justify-center text-prime-gray font-bold text-sm hover:bg-gold hover:text-prime-black hover:border-gold transition-all duration-200"
+                  className="w-11 h-11 md:w-14 md:h-14 border border-gold/20 flex items-center justify-center text-prime-gray hover:bg-gold hover:text-prime-black hover:border-gold transition-all duration-200"
                 >
-                  <Icon size={24} />
+                  <Icon size={20} />
                 </a>
               ))}
             </div>
@@ -77,15 +85,15 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="font-body font-bold text-[10px] tracking-[2.5px] uppercase text-gold mb-5">
+              <h4 className="font-body font-bold text-[9px] md:text-[10px] tracking-[2.5px] uppercase text-gold mb-4 md:mb-5">
                 {title}
               </h4>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2 md:space-y-2.5">
                 {links.map(({ label, href }) => (
                   <li key={label}>
                     <a
                       href={href}
-                      className="flex items-center gap-2 font-body text-[13px] text-prime-gray hover:text-gold transition-colors duration-200 group"
+                      className="flex items-center gap-2 font-body text-[12px] md:text-[13px] text-prime-gray hover:text-gold transition-colors duration-200 group"
                     >
                       <span className="text-gold/30 font-body text-[10px] group-hover:text-gold/60 transition-colors">
                         —
@@ -100,11 +108,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 text-center">
-          <p className="font-body text-[11px] text-prime-gray/50 tracking-[0.5px]">
+        <div className="border-t border-white/5 pt-5 md:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
+          <p className="font-body text-[10px] md:text-[11px] text-prime-gray/50 tracking-[0.5px]">
             © 2026 Prime Company. Todos os direitos reservados.
           </p>
-          <span className="flex items-center justify-center gap-2 font-body font-bold text-[10px] tracking-[2px] uppercase text-gold/50">
+          <span className="flex items-center justify-center gap-2 font-body font-bold text-[9px] md:text-[10px] tracking-[2px] uppercase text-gold/50">
             <span className="w-5 h-px bg-gold/40" />
             Prime Company
           </span>

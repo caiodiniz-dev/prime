@@ -1,5 +1,11 @@
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  animate,
+} from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   ArrowRight,
@@ -14,7 +20,6 @@ import {
   Play,
   Shield,
   Smartphone,
-  Sparkles,
   Target,
 } from "lucide-react";
 
@@ -24,7 +29,6 @@ const mediaItems = [
   {
     id: 1,
     type: "video",
-    size: "featured",
     client: "SPFC",
     tag: "Prime Football · Reel",
     title: "REELS DO SPFC\n#VEMSERSPFC",
@@ -37,7 +41,6 @@ const mediaItems = [
   {
     id: 2,
     type: "video",
-    size: "half",
     client: "Alcateia",
     tag: "Vídeo Vertical",
     title: "ALCATEIA\nNOVORIZONTINO",
@@ -50,7 +53,6 @@ const mediaItems = [
   {
     id: 3,
     type: "video",
-    size: "half",
     client: "Goalz",
     tag: "Vídeo Profissional",
     title: "GOALZ SPORT\nCLUB",
@@ -63,7 +65,6 @@ const mediaItems = [
   {
     id: 4,
     type: "video",
-    size: "small",
     client: "Chute Inicial",
     tag: "Entrevista Vertical",
     title: "CHUTE INICIAL\nHORTOLÂNDIA",
@@ -75,7 +76,6 @@ const mediaItems = [
   {
     id: 5,
     type: "video",
-    size: "small",
     client: "Paulínia Sports",
     tag: "Frames & Clips",
     title: "PAULÍNIA\nSPORTS CLUB",
@@ -88,7 +88,6 @@ const mediaItems = [
   {
     id: 6,
     type: "foto",
-    size: "small",
     client: "Goalz",
     tag: "Cobertura Fotográfica",
     title: "GOALZ\nEM CAMPO",
@@ -100,7 +99,6 @@ const mediaItems = [
   {
     id: 7,
     type: "foto",
-    size: "small",
     client: "São Paulo",
     tag: "Cobertura de Campeonato",
     title: "SÃO PAULO\nCAMPEONATO",
@@ -111,31 +109,32 @@ const mediaItems = [
   },
 ];
 
+const CARD_W = 340;
+const CARD_GAP = 20;
+const CARD_STEP = CARD_W + CARD_GAP;
+
 function typeFromTab(tab) {
-  if (tab === "Todos") return null;
   if (tab === "Vídeos") return "video";
   if (tab === "Fotos") return "foto";
   return null;
 }
 
-function MediaCard({ item, onClick }) {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+function MediaCard({ item, onClick, isCenter }) {
   const isVideo = item.type === "video";
   const Icon = item.icon || Goal;
 
   return (
-    <div
-      ref={ref}
+    <motion.div
       onClick={onClick}
+      animate={{ scale: isCenter ? 1 : 0.92, opacity: isCenter ? 1 : 0.55 }}
+      transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="relative overflow-hidden cursor-pointer group flex-shrink-0"
-      style={{ width: "340px", height: "420px" }}
+      style={{ width: `${CARD_W}px`, height: "420px" }}
     >
       {/* Gradient BG */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${item.gradient} transition-transform duration-700 group-hover:scale-105`}
-      />
+      <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient}`} />
 
-      {/* Video/Photo background */}
+      {/* Image */}
       {(item.imageUrl || item.photoUrl) && (
         <img
           src={item.imageUrl || item.photoUrl}
@@ -144,7 +143,7 @@ function MediaCard({ item, onClick }) {
         />
       )}
 
-      {/* Animated scan overlay */}
+      {/* Scan line on hover */}
       <motion.div
         className="absolute inset-x-0 h-px opacity-0 group-hover:opacity-100"
         style={{
@@ -169,14 +168,14 @@ function MediaCard({ item, onClick }) {
         <Icon size={96} className="text-gold" />
       </div>
 
-      {/* Dark gradient overlay */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-prime-black/90 via-prime-black/20 to-transparent" />
 
       {/* Corner marks */}
       <div className="corner-tl" />
       <div className="corner-br" />
 
-      {/* Play button (videos) */}
+      {/* Play button */}
       {isVideo && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="relative w-14 h-14 border-2 border-white/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:border-gold group-hover:bg-gold/10">
@@ -248,6 +247,146 @@ function MediaCard({ item, onClick }) {
           {item.client}
         </span>
       </div>
+    </motion.div>
+  );
+}
+
+function Carousel({ items }) {
+  const [current, setCurrent] = useState(0);
+  const x = useMotionValue(0);
+  const containerRef = useRef(null);
+  const [containerW, setContainerW] = useState(0);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+
+  useEffect(() => {
+    const measure = () => {
+      if (containerRef.current) setContainerW(containerRef.current.offsetWidth);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  // offset so current card is always centered
+  const getOffset = (idx) => {
+    const center = containerW / 2 - CARD_W / 2;
+    return center - idx * CARD_STEP;
+  };
+
+  const goTo = (idx) => {
+    const clamped = Math.max(0, Math.min(items.length - 1, idx));
+    setCurrent(clamped);
+    animate(x, getOffset(clamped), {
+      type: "spring",
+      stiffness: 300,
+      damping: 35,
+    });
+  };
+
+  // Init and on items/containerW change
+  useEffect(() => {
+    x.set(getOffset(Math.min(current, items.length - 1)));
+    setCurrent(Math.min(current, items.length - 1));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items.length, containerW]);
+
+  const handleDragStart = (_, info) => {
+    isDragging.current = false;
+    dragStartX.current = info.point.x;
+  };
+
+  const handleDragEnd = (_, info) => {
+    const diff = info.offset.x;
+    if (Math.abs(diff) > 40) {
+      goTo(diff < 0 ? current + 1 : current - 1);
+    } else {
+      // snap back
+      animate(x, getOffset(current), {
+        type: "spring",
+        stiffness: 300,
+        damping: 35,
+      });
+    }
+  };
+
+  return (
+    <div className="relative select-none" ref={containerRef}>
+      {/* Prev button */}
+      <button
+        onClick={() => goTo(current - 1)}
+        disabled={current === 0}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-prime-charcoal2/90 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 shadow-xl backdrop-blur-sm"
+        aria-label="Anterior"
+      >
+        <ChevronLeft size={20} />
+      </button>
+
+      {/* Next button */}
+      <button
+        onClick={() => goTo(current + 1)}
+        disabled={current === items.length - 1}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-prime-charcoal2/90 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 shadow-xl backdrop-blur-sm"
+        aria-label="Próximo"
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-prime-black to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-prime-black to-transparent pointer-events-none" />
+
+      {/* Track */}
+      <div className="overflow-hidden" style={{ height: "440px" }}>
+        <motion.div
+          className="flex items-center gap-5 absolute"
+          style={{ x, top: 0, bottom: 0, alignItems: "center" }}
+          drag="x"
+          dragConstraints={{
+            left: getOffset(items.length - 1) - 40,
+            right: getOffset(0) + 40,
+          }}
+          dragElastic={0.08}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          {items.map((item, i) => (
+            <MediaCard
+              key={item.id}
+              item={item}
+              isCenter={i === current}
+              onClick={() => {
+                if (i === current) {
+                  window.open(
+                    "https://www.instagram.com/agenciaprimefootball/",
+                    "_blank",
+                  );
+                } else {
+                  goTo(i);
+                }
+              }}
+            />
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Dots */}
+      <div className="flex items-center justify-center gap-2 mt-6">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            className="transition-all duration-300"
+            style={{
+              width: i === current ? "24px" : "6px",
+              height: "6px",
+              borderRadius: "3px",
+              background: i === current ? "#C9A84C" : "rgba(201,168,76,0.25)",
+            }}
+            aria-label={`Ir para ${i + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -255,18 +394,11 @@ function MediaCard({ item, onClick }) {
 export default function Portfolio() {
   const [activeTab, setActiveTab] = useState("Todos");
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const scrollRef = useRef(null);
 
   const typeFilter = typeFromTab(activeTab);
   const filtered = typeFilter
     ? mediaItems.filter((i) => i.type === typeFilter)
     : mediaItems;
-
-  const scroll = (dir) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir === "left" ? -370 : 370, behavior: "smooth" });
-  };
 
   return (
     <section id="projetos" className="py-28 bg-prime-black overflow-hidden">
@@ -333,68 +465,12 @@ export default function Portfolio() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35 }}
           >
-            {/* Botões de navegação */}
-            <button
-              onClick={() => scroll("left")}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 -translate-x-4 w-12 h-12 bg-prime-charcoal2 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black transition-all duration-200 shadow-xl"
-              aria-label="Anterior"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 translate-x-4 w-12 h-12 bg-prime-charcoal2 border border-gold/20 flex items-center justify-center text-gold hover:bg-gold hover:text-prime-black transition-all duration-200 shadow-xl"
-              aria-label="Próximo"
-            >
-              <ChevronRight size={20} />
-            </button>
-
-            {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 z-10 bg-gradient-to-r from-prime-black to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-12 z-10 bg-gradient-to-l from-prime-black to-transparent pointer-events-none" />
-
-            {/* Scroll container */}
-            <div
-              ref={scrollRef}
-              className="flex gap-4 overflow-x-auto pb-4"
-              style={{
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                scrollSnapType: "x mandatory",
-              }}
-            >
-              <style>{`div::-webkit-scrollbar { display: none; }`}</style>
-              {filtered.map((item, i) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.5 }}
-                  style={{ scrollSnapAlign: "start" }}
-                >
-                  <MediaCard
-                    item={item}
-                    onClick={() =>
-                      window.open(
-                        "https://www.instagram.com/agenciaprimefootball/",
-                        "_blank",
-                      )
-                    }
-                  />
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Indicador de scroll */}
-            <p className="text-center font-body text-[10px] tracking-[2px] uppercase text-prime-gray/40 mt-4">
-              ← Deslize para ver mais →
-            </p>
+            <Carousel items={filtered} />
           </motion.div>
         </AnimatePresence>
       </div>
