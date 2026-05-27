@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-import userSPFC from "/assets/SPFC-user.jpeg";
-import userTimao from "/assets/timaosumare-user.jpeg";
-import userGoalz from "/assets/goalz-users.jpeg";
+import userSPFC from "../assets/SPFC-user.jpeg";
+import userTimao from "../assets/timaosumare-user.jpeg";
+import userGoalz from "../assets/goalz-users.jpeg";
 
 const testimonials = [
   {
     text: "Antes da Prime, nosso CT era invisível nas redes. Hoje somos referência na região de Campinas. O conteúdo emocional que eles produzem cria um pertencimento real com os atletas e as famílias.",
     author: "Carlos Mendes",
-    org: "São Paulo FC — Paulínia",
+    org: "São Paulo FC — Campinas",
     photo: userSPFC,
   },
   {
@@ -22,7 +22,7 @@ const testimonials = [
   {
     text: "O nível de profissionalismo da Prime é diferente de tudo que já vi no mercado esportivo. A estética das peças transmite exatamente a grandeza que nossa escola merece.",
     author: "Lucas Ferreira",
-    org: "Goalz Sport",
+    org: "Goalz Sport — Campinas",
     photo: userGoalz,
   },
 ];
