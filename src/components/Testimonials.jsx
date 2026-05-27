@@ -1,25 +1,29 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
+import logoSPFC from "/assets/logos/Capa SPFC.png";
+import logoTimao from "/assets/logos/Capa Timão Sumaré.png";
+import logoGoalz from "/assets/logos/Capa Goalz.png";
+
 const testimonials = [
   {
     text: "Antes da Prime, nosso CT era invisível nas redes. Hoje somos referência na região de Campinas. O conteúdo emocional que eles produzem cria um pertencimento real com os atletas e as famílias.",
-    author: "Diretor Esportivo",
-    org: "Alcateia Novorizontino — Campinas",
-    initial: "M",
+    author: "Carlos Mendes",
+    org: "São Paulo FC — Campinas",
+    logo: logoSPFC,
   },
   {
     text: "A Prime Football transformou nosso projeto. Em 6 meses dobramos o número de alunos e hoje temos lista de espera em todas as categorias. A qualidade do conteúdo é incomparável no mercado.",
-    author: "Coordenador Técnico",
-    org: "Chute Inicial Corinthians — Hortolândia",
-    initial: "C",
+    author: "Rafael Oliveira",
+    org: "C.T. Timão — Sumaré",
+    logo: logoTimao,
     featured: true,
   },
   {
     text: "O nível de profissionalismo da Prime é diferente de tudo que já vi no mercado esportivo. A estética das peças transmite exatamente a grandeza que nossa escola merece.",
-    author: "Gestor",
-    org: "C.T. Timão — Sumaré",
-    initial: "L",
+    author: "Lucas Ferreira",
+    org: "Goalz Sport — Campinas",
+    logo: logoGoalz,
   },
 ];
 
@@ -69,7 +73,7 @@ export default function Testimonials() {
 
         {/* Cards — 1 col mobile, 3 col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
-          {testimonials.map(({ text, author, org, initial, featured }, i) => (
+          {testimonials.map(({ text, author, org, logo, featured }, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 50 }}
@@ -91,8 +95,13 @@ export default function Testimonials() {
             >
               <div className="p-7 md:p-10 relative z-10">
                 <div className="flex items-center justify-between gap-4 mb-6 md:mb-7">
-                  <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold text-prime-black text-lg md:text-xl font-display font-black">
-                    {initial}
+                  {/* Logo do clube */}
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-white/5 flex items-center justify-center p-1">
+                    <img
+                      src={logo}
+                      alt={org}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div className="text-right text-gold uppercase text-[10px] md:text-[11px] tracking-[2px] font-semibold">
                     {featured ? "Destaque" : "Depoimento"}
