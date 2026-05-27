@@ -17,10 +17,7 @@ const footerLinks = {
       label: "contato@agenciaprimefootball.com.br",
       href: "mailto:contato@agenciaprimefootball.com.br",
     },
-    {
-      label: "WhatsApp",
-      href: "https://wa.me/5519997752403",
-    },
+    { label: "WhatsApp", href: "https://wa.me/5519997752403" },
     {
       label: "@agenciaprimefootball",
       href: "https://www.instagram.com/agenciaprimefootball/",
@@ -51,7 +48,7 @@ export default function Footer() {
             <div className="flex items-center gap-4 mb-4 md:mb-5">
               <div className="w-16 h-16 md:w-24 md:h-24 overflow-hidden flex items-center justify-center flex-shrink-0">
                 <img
-                  src="/dist/logo.png"
+                  src="/logo.png"
                   alt="Prime Company"
                   className="w-full h-full object-contain"
                 />
