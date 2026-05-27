@@ -1,0 +1,9 @@
+{
+  "name": "Prime Company",
+  "short_name": "Prime",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#C9A84C",
+  "icons": []
+}
