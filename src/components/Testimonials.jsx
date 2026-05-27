@@ -1,29 +1,25 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-import userSPFC from "../assets/SPFC-user.jpeg";
-import userTimao from "../assets/timaosumare-user.jpeg";
-import userGoalz from "../assets/goalz-users.jpeg";
-
 const testimonials = [
   {
     text: "Antes da Prime, nosso CT era invisível nas redes. Hoje somos referência na região de Campinas. O conteúdo emocional que eles produzem cria um pertencimento real com os atletas e as famílias.",
     author: "Carlos Mendes",
     org: "São Paulo FC — Campinas",
-    photo: userSPFC,
+    photo: "/assets/SPFC-user.jpeg",
   },
   {
     text: "A Prime Football transformou nosso projeto. Em 6 meses dobramos o número de alunos e hoje temos lista de espera em todas as categorias. A qualidade do conteúdo é incomparável no mercado.",
     author: "Rafael Oliveira",
     org: "C.T. Timão — Sumaré",
-    photo: userTimao,
+    photo: "/assets/timaosumare-user.jpeg",
     featured: true,
   },
   {
     text: "O nível de profissionalismo da Prime é diferente de tudo que já vi no mercado esportivo. A estética das peças transmite exatamente a grandeza que nossa escola merece.",
     author: "Lucas Ferreira",
     org: "Goalz Sport — Campinas",
-    photo: userGoalz,
+    photo: "/assets/goalz-users.jpeg",
   },
 ];
 
