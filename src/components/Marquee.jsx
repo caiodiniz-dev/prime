@@ -1,25 +1,19 @@
-// Marquee.jsx — Prime Company
-
 const logos = [
+  { src: "/assets/logos/Capa Alcateia Gevisa.png", alt: "Alcateia Gevisa" },
   {
-    src: "/dist/assets/logos/Capa Alcateia Gevisa.png",
-    alt: "Alcateia Gevisa",
-  },
-  {
-    src: "/dist/assets/logos/Capa Chute Inicial Hortolandia.png",
+    src: "/assets/logos/Capa Chute Inicial Hortolandia.png",
     alt: "Chute Futsal",
   },
   {
-    src: "/dist/assets/logos/Capa Chute Inicial.png",
+    src: "/assets/logos/Capa Chute Inicial.png",
     alt: "Chute Inicial Hortolândia",
   },
-  { src: "/dist/assets/logos/Capa Goalz.png", alt: "Goalz" },
-  { src: "/dist/assets/logos/Capa SPFC.png", alt: "SPFC" },
-  { src: "/dist/assets/logos/Capa Timão Sumaré.png", alt: "Timão Sumaré" },
-  { src: "/dist/assets/logos/Capa Wanderson.png", alt: "Wanderson" },
+  { src: "/assets/logos/Capa Goalz.png", alt: "Goalz" },
+  { src: "/assets/logos/Capa SPFC.png", alt: "SPFC" },
+  { src: "/assets/logos/Capa Timão Sumaré.png", alt: "Timão Sumaré" },
+  { src: "/assets/logos/Capa Wanderson.png", alt: "Wanderson" },
 ];
 
-// MUITAS cópias pro loop ficar perfeito
 const track = [...logos, ...logos, ...logos, ...logos, ...logos, ...logos];
 
 export default function Marquee() {
@@ -33,7 +27,6 @@ export default function Marquee() {
         alignItems: "center",
       }}
     >
-      {/* Fade esquerda */}
       <div
         className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
         style={{
@@ -41,8 +34,6 @@ export default function Marquee() {
           background: "linear-gradient(to right, #0A0A0A, transparent)",
         }}
       />
-
-      {/* Fade direita */}
       <div
         className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
         style={{
@@ -50,13 +41,9 @@ export default function Marquee() {
           background: "linear-gradient(to left, #0A0A0A, transparent)",
         }}
       />
-
       <div
         className="flex items-center animate-marquee"
-        style={{
-          width: "max-content",
-          gap: "clamp(16px, 4vw, 32px)",
-        }}
+        style={{ width: "max-content", gap: "clamp(16px, 4vw, 32px)" }}
       >
         {track.map(({ src, alt }, i) => (
           <img
@@ -71,13 +58,10 @@ export default function Marquee() {
               filter: "grayscale(100%)",
               opacity: 0.45,
               flexShrink: 0,
-
               marginTop: "calc((clamp(70px, 10vw, 120px) - 72px) / -2)",
               marginBottom: "calc((clamp(70px, 10vw, 120px) - 72px) / -2)",
-
               transition:
                 "transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease",
-
               cursor: "default",
             }}
             onMouseEnter={(e) => {

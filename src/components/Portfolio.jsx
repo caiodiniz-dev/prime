@@ -18,7 +18,7 @@ const mediaItems = [
     tag: "Prime Football · Reel",
     title: "REELS DO SPFC\n#VEMSERSPFC",
     duration: "2:34",
-    imageUrl: "/dist/assets/videos/vd-1.jpeg",
+    imageUrl: "/assets/videos/vd-1.jpeg",
     gradient: "from-[#1a1200] via-[#2d1f00] to-[#0f0e00]",
     accent: "#C9A84C",
   },
@@ -29,7 +29,7 @@ const mediaItems = [
     tag: "Vídeo Vertical",
     title: "ALCATEIA\nNOVORIZONTINO",
     duration: "2:15",
-    imageUrl: "/dist/assets/videos/vd-2.jpeg",
+    imageUrl: "/assets/videos/vd-2.jpeg",
     gradient: "from-[#1a0a0a] via-[#2d0000] to-[#1a0000]",
     accent: "#C9A84C",
   },
@@ -40,7 +40,7 @@ const mediaItems = [
     tag: "Vídeo Profissional",
     title: "GOALZ SPORT\nCLUB",
     duration: "1:58",
-    imageUrl: "/dist/assets/videos/vd-3.jpeg",
+    imageUrl: "/assets/videos/vd-3.jpeg",
     gradient: "from-[#0a0a1a] via-[#0f0020] to-[#0a0a1a]",
     accent: "#E6CC7A",
   },
@@ -50,7 +50,7 @@ const mediaItems = [
     client: "Chute Inicial",
     tag: "Entrevista Vertical",
     title: "CHUTE INICIAL\nHORTOLÂNDIA",
-    imageUrl: "/dist/assets/videos/vd-4.jpeg",
+    imageUrl: "/assets/videos/vd-4.jpeg",
     gradient: "from-[#1a1a0a] via-[#2d2800] to-[#1a1a0a]",
     accent: "#C9A84C",
   },
@@ -61,7 +61,7 @@ const mediaItems = [
     tag: "Frames & Clips",
     title: "PAULÍNIA\nSPORTS CLUB",
     duration: "0:45",
-    imageUrl: "/dist/assets/videos/vd-1.jpeg",
+    imageUrl: "/assets/videos/vd-1.jpeg",
     gradient: "from-[#0a0a1a] via-[#001020] to-[#0a0a1a]",
     accent: "#E6CC7A",
   },
@@ -71,7 +71,7 @@ const mediaItems = [
     client: "Goalz",
     tag: "Cobertura Fotográfica",
     title: "GOALZ\nEM CAMPO",
-    photoUrl: "/dist/foto-goalz-sport.jpeg",
+    photoUrl: "/foto-goalz-sport.jpeg",
     gradient: "from-[#1a0a1a] via-[#1a001a] to-[#0a000a]",
     accent: "#C9A84C",
   },
@@ -81,7 +81,7 @@ const mediaItems = [
     client: "São Paulo",
     tag: "Cobertura de Campeonato",
     title: "SÃO PAULO\nCAMPEONATO",
-    photoUrl: "/dist/foto-sao-paulo.jpeg",
+    photoUrl: "/foto-sao-paulo.jpeg",
     gradient: "from-[#001a1a] via-[#001a20] to-[#001010]",
     accent: "#E6CC7A",
   },
@@ -99,7 +99,6 @@ function typeFromTab(tab) {
 
 function MediaCard({ item, onClick, isCenter }) {
   const isVideo = item.type === "video";
-
   return (
     <motion.div
       onClick={onClick}
@@ -108,10 +107,7 @@ function MediaCard({ item, onClick, isCenter }) {
       className="relative overflow-hidden cursor-pointer group flex-shrink-0 rounded-sm select-none"
       style={{ width: `${CARD_W}px`, height: "420px" }}
     >
-      {/* Gradient BG */}
       <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient}`} />
-
-      {/* Image */}
       {(item.imageUrl || item.photoUrl) && (
         <img
           src={item.imageUrl || item.photoUrl}
@@ -119,8 +115,6 @@ function MediaCard({ item, onClick, isCenter }) {
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-102 transition-transform duration-700 ease-out"
         />
       )}
-
-      {/* Scan line on hover */}
       <motion.div
         className="absolute inset-x-0 h-px opacity-0 group-hover:opacity-100"
         style={{
@@ -129,8 +123,6 @@ function MediaCard({ item, onClick, isCenter }) {
         animate={{ top: ["0%", "100%"] }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
       />
-
-      {/* Grid overlay */}
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
@@ -139,11 +131,7 @@ function MediaCard({ item, onClick, isCenter }) {
           backgroundSize: "30px 30px",
         }}
       />
-
-      {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-prime-black/95 via-prime-black/30 to-transparent" />
-
-      {/* Play button */}
       {isVideo && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="relative w-14 h-14 border-2 border-white/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:border-gold group-hover:bg-gold/10">
@@ -156,20 +144,11 @@ function MediaCard({ item, onClick, isCenter }) {
           </div>
         </div>
       )}
-
-      {/* Photo icon */}
-      {item.type === "foto" && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      )}
-
-      {/* Duration badge */}
       {item.duration && (
         <div className="absolute top-4 right-4 z-20 bg-prime-black/75 text-white text-[10px] font-semibold px-2 py-1 font-mono">
           {item.duration}
         </div>
       )}
-
-      {/* Type badge */}
       <div
         className="absolute top-4 left-4 z-20 font-body text-[9px] font-bold tracking-[2px] uppercase px-2 py-1 border"
         style={{
@@ -178,16 +157,12 @@ function MediaCard({ item, onClick, isCenter }) {
           background: `${item.accent}10`,
         }}
       >
-        <span className="inline-flex items-center gap-1.5">
-          {item.type === "video"
-            ? "VÍDEO"
-            : item.type === "foto"
-              ? "FOTO"
-              : "GRÁFICO"}
-        </span>
+        {item.type === "video"
+          ? "VÍDEO"
+          : item.type === "foto"
+            ? "FOTO"
+            : "GRÁFICO"}
       </div>
-
-      {/* Bottom info */}
       <div className="absolute bottom-0 inset-x-0 p-5 z-20">
         <span
           className="block font-body text-[9px] font-bold tracking-[2px] uppercase mb-1.5"
@@ -211,10 +186,8 @@ function MediaCard({ item, onClick, isCenter }) {
 }
 
 function Carousel({ items }) {
-  // Define dinamicamente o index central da lista atual
   const initialCenterIndex = Math.floor(items.length / 2);
   const [current, setCurrent] = useState(initialCenterIndex);
-
   const x = useMotionValue(0);
   const containerRef = useRef(null);
   const [containerW, setContainerW] = useState(0);
@@ -228,10 +201,7 @@ function Carousel({ items }) {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  const getOffset = (idx) => {
-    const center = containerW / 2 - CARD_W / 2;
-    return center - idx * CARD_STEP;
-  };
+  const getOffset = (idx) => containerW / 2 - CARD_W / 2 - idx * CARD_STEP;
 
   const goTo = (idx) => {
     const clamped = Math.max(0, Math.min(items.length - 1, idx));
@@ -244,28 +214,20 @@ function Carousel({ items }) {
     });
   };
 
-  // Garante que ao mudar de aba ou redimensionar a tela, comece centralizado no meio
   useEffect(() => {
     const targetIndex = Math.floor(items.length / 2);
     setCurrent(targetIndex);
     x.set(getOffset(targetIndex));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length, containerW]);
 
   const handleDragEnd = (_, info) => {
-    const threshold = 50;
-    if (info.offset.x < -threshold) {
-      goTo(current + 1);
-    } else if (info.offset.x > threshold) {
-      goTo(current - 1);
-    } else {
-      goTo(current);
-    }
+    if (info.offset.x < -50) goTo(current + 1);
+    else if (info.offset.x > 50) goTo(current - 1);
+    else goTo(current);
   };
 
   return (
     <div className="relative select-none" ref={containerRef}>
-      {/* Prev button */}
       <button
         onClick={() => goTo(current - 1)}
         disabled={current === 0}
@@ -274,8 +236,6 @@ function Carousel({ items }) {
       >
         <ChevronLeft size={20} />
       </button>
-
-      {/* Next button */}
       <button
         onClick={() => goTo(current + 1)}
         disabled={current === items.length - 1}
@@ -284,8 +244,6 @@ function Carousel({ items }) {
       >
         <ChevronRight size={20} />
       </button>
-
-      {/* Track Container (Sem as divs de sombra lateral para máxima fluidez visual) */}
       <div
         className="overflow-hidden relative w-full"
         style={{ height: "440px" }}
@@ -307,21 +265,17 @@ function Carousel({ items }) {
               item={item}
               isCenter={i === current}
               onClick={() => {
-                if (i === current) {
+                if (i === current)
                   window.open(
                     "https://www.instagram.com/agenciaprimefootball/",
                     "_blank",
                   );
-                } else {
-                  goTo(i);
-                }
+                else goTo(i);
               }}
             />
           ))}
         </motion.div>
       </div>
-
-      {/* Dots */}
       <div className="flex items-center justify-center gap-2 mt-6">
         {items.map((_, i) => (
           <button
@@ -345,7 +299,6 @@ function Carousel({ items }) {
 export default function Portfolio() {
   const [activeTab, setActiveTab] = useState("Todos");
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-
   const typeFilter = typeFromTab(activeTab);
   const filtered = typeFilter
     ? mediaItems.filter((i) => i.type === typeFilter)
@@ -354,7 +307,6 @@ export default function Portfolio() {
   return (
     <section id="projetos" className="py-28 bg-prime-black overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-5 md:px-10">
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div>
             <motion.div
@@ -376,8 +328,6 @@ export default function Portfolio() {
               <br />
               <em className="text-gold not-italic">conecta e converte.</em>
             </motion.h2>
-
-            {/* Tabs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -388,18 +338,13 @@ export default function Portfolio() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 font-body font-semibold text-[11px] tracking-[1.5px] uppercase border transition-all duration-200 ${
-                    activeTab === tab
-                      ? "bg-gold text-prime-black border-gold"
-                      : "text-prime-gray border-white/10 hover:text-white hover:border-white/25"
-                  }`}
+                  className={`px-4 py-2 font-body font-semibold text-[11px] tracking-[1.5px] uppercase border transition-all duration-200 ${activeTab === tab ? "bg-gold text-prime-black border-gold" : "text-prime-gray border-white/10 hover:text-white hover:border-white/25"}`}
                 >
                   {tab}
                 </button>
               ))}
             </motion.div>
           </div>
-
           <motion.a
             href="#contato"
             initial={{ opacity: 0 }}
@@ -407,12 +352,9 @@ export default function Portfolio() {
             transition={{ delay: 0.3 }}
             className="btn-outline shrink-0 self-end md:self-auto"
           >
-            Ver Todos os Projetos
-            <ArrowRight size={14} />
+            Ver Todos os Projetos <ArrowRight size={14} />
           </motion.a>
         </div>
-
-        {/* Carrossel */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

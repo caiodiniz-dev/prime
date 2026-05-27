@@ -19,7 +19,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Bloqueia scroll quando menu mobile aberto
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -33,20 +32,15 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 md:px-10 transition-all duration-500 ${
-          scrolled
-            ? "py-3 bg-prime-black/95 backdrop-blur-xl border-b border-gold/10"
-            : "py-4 md:py-6"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 md:px-10 transition-all duration-500 ${scrolled ? "py-3 bg-prime-black/95 backdrop-blur-xl border-b border-gold/10" : "py-4 md:py-6"}`}
       >
-        {/* Logo */}
         <a
           href="#"
           className="flex items-center gap-3 md:gap-6 group transition-all duration-300 hover:text-gold"
         >
           <div className="w-14 h-14 md:w-20 md:h-20 flex items-center justify-center overflow-hidden transition-all duration-300">
             <img
-              src="/dist/logo.png"
+              src="/logo.png"
               alt="Prime Company logo"
               className="w-full h-full object-contain transition duration-300 group-hover:scale-110"
             />
@@ -56,14 +50,12 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-9">
           {links.map(({ label, href }) => (
             <li key={label}>
               <a
                 href={href}
-                className="relative font-body font-medium text-[12px] tracking-[1.5px] uppercase text-prime-gray-light
-                           hover:text-white transition-colors duration-200 group"
+                className="relative font-body font-medium text-[12px] tracking-[1.5px] uppercase text-prime-gray-light hover:text-white transition-colors duration-200 group"
               >
                 {label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-300 group-hover:w-full" />
@@ -75,15 +67,13 @@ export default function Navbar() {
               href="https://wa.me/5519997752403"
               target="_blank"
               rel="noreferrer"
-              className="bg-gold text-prime-black font-bold text-[11px] tracking-[1.5px] uppercase px-5 py-2.5
-                         hover:bg-gold-light hover:-translate-y-px transition-all duration-200 font-body"
+              className="bg-gold text-prime-black font-bold text-[11px] tracking-[1.5px] uppercase px-5 py-2.5 hover:bg-gold-light hover:-translate-y-px transition-all duration-200 font-body"
             >
               Fale Conosco
             </a>
           </li>
         </ul>
 
-        {/* Mobile menu btn */}
         <button
           className="md:hidden flex flex-col gap-[5px] p-2 z-[110]"
           onClick={() => setMenuOpen((v) => !v)}
@@ -108,7 +98,6 @@ export default function Navbar() {
         </button>
       </motion.nav>
 
-      {/* Mobile drawer */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -118,10 +107,9 @@ export default function Navbar() {
             transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="fixed inset-0 z-[90] bg-prime-black/98 backdrop-blur-xl flex flex-col items-center justify-center gap-6 px-8"
           >
-            {/* Logo no drawer */}
             <div className="absolute top-6 left-5 flex items-center gap-3">
               <img
-                src="/dist/logo.png"
+                src="/logo.png"
                 alt="Prime"
                 className="w-12 h-12 object-contain"
               />
@@ -157,7 +145,6 @@ export default function Navbar() {
               Agendar Reunião Gratuita
             </motion.a>
 
-            {/* Linha decorativa inferior */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

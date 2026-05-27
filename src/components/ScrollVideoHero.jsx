@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Volume2, VolumeX, ChevronDown } from "lucide-react";
 
-const VIDEO_SRC = "/dist/prime-hero.mp4";
+const VIDEO_SRC = "/prime-hero.mp4";
 const INTRO_DURATION_SECONDS = 5;
 
 const stats = [
@@ -12,7 +12,6 @@ const stats = [
   { num: "2B+", label: "Views Geradas" },
 ];
 
-// phase: 'idle' | 'playing' | 'done'
 export default function ScrollVideoHero() {
   const videoRef = useRef(null);
   const scrollUnlocked = useRef(false);
@@ -154,7 +153,6 @@ export default function ScrollVideoHero() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      {/* Video background */}
       <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
@@ -164,7 +162,7 @@ export default function ScrollVideoHero() {
           loop
           playsInline
           preload="auto"
-          poster="/dist/logo.png"
+          poster="/logo.png"
           onLoadedMetadata={handleLoaded}
           onCanPlayThrough={handleLoaded}
           onEnded={finishIntro}
@@ -184,7 +182,6 @@ export default function ScrollVideoHero() {
         />
       </div>
 
-      {/* Loading screen */}
       <AnimatePresence>
         {!videoReady && (
           <motion.div
@@ -227,7 +224,6 @@ export default function ScrollVideoHero() {
         )}
       </AnimatePresence>
 
-      {/* Progress bar */}
       <AnimatePresence>
         {isPlaying && (
           <motion.div
@@ -245,7 +241,6 @@ export default function ScrollVideoHero() {
         )}
       </AnimatePresence>
 
-      {/* Mute button */}
       <AnimatePresence>
         {videoReady && (
           <motion.button
@@ -267,7 +262,6 @@ export default function ScrollVideoHero() {
         )}
       </AnimatePresence>
 
-      {/* Hero content */}
       <div className="relative z-10 h-full flex flex-col justify-center max-w-[1280px] mx-auto px-5 md:px-10 pt-20">
         <motion.div
           variants={container}
@@ -275,7 +269,6 @@ export default function ScrollVideoHero() {
           animate={videoReady ? "visible" : "hidden"}
           className="max-w-3xl"
         >
-          {/* Badge */}
           <motion.div
             variants={item}
             className="inline-flex items-center gap-2.5 bg-gold/10 border border-gold/30 px-3 md:px-4 py-2 mb-6 md:mb-8 backdrop-blur-sm"
@@ -295,7 +288,6 @@ export default function ScrollVideoHero() {
             />
           </motion.div>
 
-          {/* Title */}
           <motion.h1
             variants={item}
             className="font-display font-black leading-[1.03] mb-5 md:mb-6 text-white"
@@ -306,7 +298,6 @@ export default function ScrollVideoHero() {
             <span className="text-gold italic">Seja Prime.</span>
           </motion.h1>
 
-          {/* Tagline */}
           <motion.p
             variants={item}
             className="font-accent font-light italic text-white/70 text-base md:text-xl leading-relaxed border-l-2 border-gold pl-4 md:pl-5 mb-8 md:mb-10 max-w-xl"
@@ -315,7 +306,6 @@ export default function ScrollVideoHero() {
             conteúdo e captação que geram resultado previsível.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             variants={item}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-5 mb-10 md:mb-14"
@@ -342,7 +332,6 @@ export default function ScrollVideoHero() {
             </motion.a>
           </motion.div>
 
-          {/* Stats — 2 cols mobile, 4 cols desktop */}
           <motion.div
             variants={item}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-5 md:pt-6 border-t border-white/10 max-w-xl"
@@ -375,7 +364,6 @@ export default function ScrollVideoHero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicators */}
       <AnimatePresence>
         {phase === "idle" && videoReady && (
           <motion.div

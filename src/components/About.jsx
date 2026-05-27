@@ -3,22 +3,13 @@ import { useInView } from "react-intersection-observer";
 import { MapPin } from "lucide-react";
 
 const pillars = [
-  {
-    title: "Especialização Total",
-    sub: "100% em futebol. Zero genérico.",
-  },
-  {
-    title: "Captação em Campo",
-    sub: "Presença nos treinos e jogos.",
-  },
+  { title: "Especialização Total", sub: "100% em futebol. Zero genérico." },
+  { title: "Captação em Campo", sub: "Presença nos treinos e jogos." },
   {
     title: "Resultado Mensurável",
     sub: "Crescimento previsível e consistente.",
   },
-  {
-    title: "Estética Premium",
-    sub: "Zero improviso. Zero poluição visual.",
-  },
+  { title: "Estética Premium", sub: "Zero improviso. Zero poluição visual." },
 ];
 
 export default function About() {
@@ -33,7 +24,6 @@ export default function About() {
       id="sobre"
       className="py-20 md:py-28 bg-prime-black relative overflow-hidden"
     >
-      {/* Background accent */}
       <div
         className="absolute -left-40 top-1/2 w-80 h-80 rounded-full -translate-y-1/2 pointer-events-none"
         style={{
@@ -43,7 +33,6 @@ export default function About() {
       />
 
       <div className="max-w-[1280px] mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-24 items-center">
-        {/* LEFT — Visual */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, x: -50 }}
@@ -51,7 +40,6 @@ export default function About() {
           transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="relative order-2 lg:order-1"
         >
-          {/* Floating card — top left */}
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -68,17 +56,14 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Main visual frame */}
           <div className="relative aspect-[4/5] bg-prime-charcoal2 border border-gold/10 overflow-hidden">
             <img
-              src="/dist/assets/prime.jpeg"
+              src="/assets/prime.jpeg"
               alt="Prime Company em campo"
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: "center top" }}
             />
             <div className="absolute inset-0 bg-prime-black/30" />
-
-            {/* Grid overlay */}
             <div
               className="absolute inset-0 opacity-[0.03]"
               style={{
@@ -87,18 +72,14 @@ export default function About() {
                 backgroundSize: "40px 40px",
               }}
             />
-
-            {/* Scan animation */}
             <motion.div
               className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
               animate={{ top: ["0%", "100%"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             />
-
             <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-prime-black/60 to-transparent" />
           </div>
 
-          {/* Gold card — bottom right */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -114,7 +95,6 @@ export default function About() {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT — Text */}
         <div className="order-1 lg:order-2" ref={refRight}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -160,7 +140,6 @@ export default function About() {
             conexão dentro do futebol."
           </motion.blockquote>
 
-          {/* Pillars */}
           <div className="grid grid-cols-2 gap-3 md:gap-4">
             {pillars.map(({ title, sub }, i) => (
               <motion.div
