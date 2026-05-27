@@ -1,38 +1,28 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {
-  AlertTriangle,
-  Eye,
-  TrendingDown,
-  Smartphone,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const problems = [
   {
     num: "01",
-    icon: Eye,
     title: "Invisibilidade digital",
     desc: "Sem presença estratégica nas redes, sua escola não existe para famílias que procuram um futuro esportivo para o filho. O algoritmo não perdoa ausência — e o concorrente ao lado agradece.",
     tag: "Comum em 9 de 10 CTs",
   },
   {
     num: "02",
-    icon: AlertTriangle,
     title: "Identidade visual fraca",
     desc: "Peças sem padrão, fontes aleatórias, fotos sem edição. A estética comunica antes mesmo da legenda — e uma identidade fraca destrói a autoridade da sua marca antes de começar.",
     tag: "A primeira impressão é visual",
   },
   {
     num: "03",
-    icon: TrendingDown,
     title: "Captação sem previsibilidade",
     desc: "Depender de indicação boca a boca não é estratégia — é sorte. Escolas que dominam o digital captam novos alunos todo mês, com funis estruturados e aula experimental.",
     tag: "Resultado precisa ser mensurável",
   },
   {
     num: "04",
-    icon: Smartphone,
     title: "Conteúdo sem emoção",
     desc: "Posts que não conectam, não engajam e não vendem. Famílias escolhem escolas que transmitem propósito, sonho e pertencimento — não tabela de preços e horários jogados num story.",
     tag: "Conteúdo que converte",
@@ -42,7 +32,7 @@ const problems = [
 const counters = [
   { num: "90%", label: "Das escolas sem estratégia digital" },
   { num: "3×", label: "Mais matrículas com branding forte" },
-  { num: "6 meses", label: "Para se tornar referência na região" }, // Alterado de '6mo' para '6 meses'
+  { num: "6 meses", label: "Para se tornar referência na região" },
   { num: "0", label: "Tolerância ao conteúdo genérico" },
 ];
 
@@ -58,27 +48,23 @@ export default function ProblemSection() {
 
   return (
     <section className="py-20 md:py-28 bg-prime-charcoal relative overflow-hidden">
-      {/* Top border */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
 
-      {/* Background scan */}
       <motion.div
-        className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent pointer-events-none"
+        className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent pointer-events-none"
         animate={{ top: ["0%", "100%"] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Subtle background glow */}
       <div
         className="absolute right-0 top-1/3 w-96 h-96 rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(201,168,76,0.03) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%)",
         }}
       />
 
       <div className="max-w-[1280px] mx-auto px-5 md:px-10">
-        {/* ── Header ── */}
         <div className="mb-14 md:mb-20" ref={refHeader}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,12 +98,11 @@ export default function ProblemSection() {
             presença digital mais forte. Isso tem solução.
           </motion.p>
 
-          {/* Counter strip */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inViewHeader ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gold/8 mt-10 md:mt-12"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gold/8 mt-10 md:mt-12 overflow-hidden"
           >
             {counters.map(({ num, label }, i) => (
               <motion.div
@@ -129,7 +114,7 @@ export default function ProblemSection() {
               >
                 <span
                   className="block font-display font-black text-gold leading-none mb-2"
-                  style={{ fontSize: "clamp(32px, 4vw, 52px)" }}
+                  style={{ fontSize: "clamp(28px, 3.8vw, 52px)" }}
                 >
                   {num}
                 </span>
@@ -141,12 +126,11 @@ export default function ProblemSection() {
           </motion.div>
         </div>
 
-        {/* ── Problem cards ── */}
         <div
           ref={refCards}
           className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gold/8"
         >
-          {problems.map(({ num, icon: Icon, title, desc, tag }, i) => (
+          {problems.map(({ num, title, desc, tag }, i) => (
             <motion.div
               key={num}
               initial={{ opacity: 0, y: 40 }}
@@ -157,29 +141,22 @@ export default function ProblemSection() {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               className="relative bg-prime-charcoal p-7 md:p-10 group overflow-hidden"
+              style={{ minHeight: "220px" }}
             >
-              {/* Hover left border */}
               <motion.div
-                className="absolute left-0 top-0 bottom-0 w-0.5 bg-gold origin-top"
+                className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-gold/0 via-gold to-gold/0 origin-top"
                 initial={{ scaleY: 0 }}
                 whileHover={{ scaleY: 1 }}
                 transition={{ duration: 0.4 }}
               />
 
-              {/* Background number */}
-              <span className="absolute top-6 right-6 font-display font-black text-[80px] md:text-[100px] leading-none text-gold/[0.04] select-none group-hover:text-gold/[0.07] transition-colors duration-300">
+              <span
+                className="absolute top-4 right-5 font-display font-black leading-none text-gold/[0.035] select-none pointer-events-none transition-colors duration-300 group-hover:text-gold/[0.07]"
+                style={{ fontSize: "clamp(64px, 7vw, 96px)" }}
+                aria-hidden="true"
+              >
                 {num}
               </span>
-
-              {/* Top row */}
-              <div className="flex items-start justify-between gap-4 mb-5">
-                <div className="w-10 h-10 md:w-12 md:h-12 border border-gold/25 bg-gold/5 flex items-center justify-center text-gold flex-shrink-0 group-hover:bg-gold/10 group-hover:border-gold/40 transition-all duration-300">
-                  <Icon size={20} />
-                </div>
-                <span className="inline-flex items-center justify-center font-display font-bold text-[13px] tracking-[1px] text-gold bg-gold/[0.03] border border-gold/30 px-3 py-1.5 min-w-[48px] h-[32px] mt-1 select-none">
-                  {num}
-                </span>
-              </div>
 
               <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 leading-tight group-hover:text-gold transition-colors duration-300">
                 {title}
@@ -196,12 +173,11 @@ export default function ProblemSection() {
           ))}
         </div>
 
-        {/* ── CTA strip ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inViewCards ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5 }}
-          className="mt-px bg-gold/5 border border-gold/15 px-6 md:px-10 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5"
+          className="mt-px bg-gold/[0.06] border border-gold/15 px-6 md:px-10 py-6 md:py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5"
         >
           <div>
             <strong className="block font-display font-bold text-white text-lg md:text-xl mb-1">
@@ -218,7 +194,7 @@ export default function ProblemSection() {
             className="btn-prime shrink-0 text-[11px] whitespace-nowrap"
           >
             <span>Quero resolver agora</span>
-            <ArrowRight size={15} className="relative z-10" />
+            <ArrowRight size={15} className="relative z-10 flex-shrink-0" />
           </a>
         </motion.div>
       </div>

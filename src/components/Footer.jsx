@@ -51,7 +51,7 @@ export default function Footer() {
             <div className="flex items-center gap-4 mb-4 md:mb-5">
               <div className="w-16 h-16 md:w-24 md:h-24 overflow-hidden flex items-center justify-center flex-shrink-0">
                 <img
-                  src="/logo.png"
+                  src="/dist/logo.png"
                   alt="Prime Company"
                   className="w-full h-full object-contain"
                 />

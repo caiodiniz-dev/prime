@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Volume2, VolumeX, ChevronDown } from "lucide-react";
 
-const VIDEO_SRC = "./prime-hero.mp4";
+const VIDEO_SRC = "/dist/prime-hero.mp4";
 const INTRO_DURATION_SECONDS = 5;
 
 const stats = [
@@ -164,7 +164,7 @@ export default function ScrollVideoHero() {
           loop
           playsInline
           preload="auto"
-          poster="/logo.png"
+          poster="/dist/logo.png"
           onLoadedMetadata={handleLoaded}
           onCanPlayThrough={handleLoaded}
           onEnded={finishIntro}

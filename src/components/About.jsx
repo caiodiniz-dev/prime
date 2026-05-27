@@ -1,25 +1,21 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { BarChart3, Camera, MapPin, Medal, Target } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 const pillars = [
   {
-    icon: Target,
     title: "Especialização Total",
     sub: "100% em futebol. Zero genérico.",
   },
   {
-    icon: Camera,
     title: "Captação em Campo",
     sub: "Presença nos treinos e jogos.",
   },
   {
-    icon: BarChart3,
     title: "Resultado Mensurável",
     sub: "Crescimento previsível e consistente.",
   },
   {
-    icon: Medal,
     title: "Estética Premium",
     sub: "Zero improviso. Zero poluição visual.",
   },
@@ -81,39 +77,6 @@ export default function About() {
               style={{ objectPosition: "center top" }}
             />
             <div className="absolute inset-0 bg-prime-black/30" />
-
-            {/* Rings decorativos */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="relative w-40 h-40 md:w-48 md:h-48">
-                <motion.div
-                  className="absolute inset-0 rounded-full border border-white/8"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-                <motion.div
-                  className="absolute inset-6 rounded-full border border-white/10"
-                  animate={{ rotate: -360 }}
-                  transition={{
-                    duration: 24,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-                <motion.div
-                  className="absolute inset-12 rounded-full border border-white/12"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 28,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-              </div>
-            </div>
 
             {/* Grid overlay */}
             <div
@@ -193,13 +156,13 @@ export default function About() {
             transition={{ delay: 0.3 }}
             className="font-accent italic text-gold-light text-lg md:text-xl leading-relaxed border-l-2 border-gold pl-4 md:pl-5 my-6 md:my-7"
           >
-            "Cada peça gráfica carrega a responsabilidade de representar uma
-            escola, o sonho de um atleta e a total confiança de uma família."
+            "Não criamos apenas artes. Construímos presença, autoridade e
+            conexão dentro do futebol."
           </motion.blockquote>
 
           {/* Pillars */}
           <div className="grid grid-cols-2 gap-3 md:gap-4">
-            {pillars.map(({ icon: Icon, title, sub }, i) => (
+            {pillars.map(({ title, sub }, i) => (
               <motion.div
                 key={title}
                 initial={{ opacity: 0, y: 20 }}
@@ -207,9 +170,6 @@ export default function About() {
                 transition={{ delay: 0.4 + i * 0.08 }}
                 className="flex items-start gap-2 md:gap-3 group"
               >
-                <div className="w-8 h-8 md:w-9 md:h-9 border border-gold/30 flex items-center justify-center text-base flex-shrink-0 bg-gold/5 group-hover:bg-gold/10 transition-colors duration-200">
-                  <Icon size={15} className="text-gold" />
-                </div>
                 <div>
                   <strong className="block font-body font-bold text-[12px] md:text-[13px] text-white">
                     {title}

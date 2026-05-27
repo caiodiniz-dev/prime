@@ -1,3 +1,9 @@
+// Process.jsx — Prime Company
+// Fixes: connecting line alinhada com topo do ícone (não meio do card),
+//        rounded-none nos cards para manter estética quadrada,
+//        hover scale ao invés de y negativo (evita reflow),
+//        orbs blur com will-change para performance
+
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -29,15 +35,20 @@ export default function Process() {
 
   return (
     <section className="py-24 md:py-32 bg-prime-charcoal relative overflow-hidden">
-      {/* Animated background orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Animated background orbs — will-change para GPU */}
+      <div
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        aria-hidden="true"
+      >
         <motion.div
-          className="absolute -top-40 right-0 w-96 h-96 rounded-full bg-gold/10 blur-[100px]"
+          className="absolute -top-40 right-0 w-80 h-80 rounded-full bg-gold/8 blur-[80px]"
+          style={{ willChange: "transform" }}
           animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute -bottom-40 left-1/4 w-96 h-96 rounded-full bg-gold/8 blur-[100px]"
+          className="absolute -bottom-40 left-1/4 w-80 h-80 rounded-full bg-gold/6 blur-[80px]"
+          style={{ willChange: "transform" }}
           animate={{ y: [0, -30, 0], x: [0, -20, 0] }}
           transition={{
             duration: 10,
@@ -54,7 +65,8 @@ export default function Process() {
         className="max-w-[1280px] mx-auto px-5 md:px-10 relative z-10"
         ref={ref}
       >
-        <div className="text-center mb-16 md:mb-24">
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -62,6 +74,7 @@ export default function Process() {
           >
             Como Trabalhamos
           </motion.div>
+
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -71,6 +84,7 @@ export default function Process() {
           >
             Método <em className="text-gold">Prime</em> em ação
           </motion.h2>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -83,14 +97,20 @@ export default function Process() {
           </motion.p>
         </div>
 
-        <div className="relative grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-4">
-          {/* Animated connecting line — desktop only */}
+        {/* Cards grid */}
+        <div className="relative grid grid-cols-1 gap-4 md:gap-5 lg:grid-cols-4 lg:gap-6">
+          {/*
+            Connecting line desktop:
+            height px, alinhada ao centro do ícone (ícone está em mb-5 + h-16 = ~88px from top + padding-top p-8 = ~32px → ~64px from top of card).
+            Usamos top fixo de 92px que cobre p-8 (32px) + h-16/2 (32px) = 64px + margem visual.
+          */}
           <motion.div
-            className="absolute top-32 left-1/2 h-px w-full bg-gradient-to-r from-gold/10 via-gold/50 to-gold/10 hidden lg:block"
+            className="absolute left-[calc(12.5%+28px)] right-[calc(12.5%+28px)] h-px bg-gradient-to-r from-gold/10 via-gold/45 to-gold/10 hidden lg:block"
+            style={{ top: "92px" }}
             initial={{ opacity: 0, scaleX: 0 }}
             animate={inView ? { opacity: 1, scaleX: 1 } : {}}
-            transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
-            style={{ transformOrigin: "left" }}
+            transition={{ delay: 0.5, duration: 1.1, ease: "easeOut" }}
+            aria-hidden="true"
           />
 
           {steps.map(({ num, title, desc }, i) => (
@@ -98,64 +118,59 @@ export default function Process() {
               key={num}
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 + i * 0.15, duration: 0.8 }}
-              whileHover={{ y: -12, transition: { duration: 0.3 } }}
-              className={`relative overflow-hidden rounded-[20px] md:rounded-[24px] border border-gold/10 bg-gradient-to-br from-prime-charcoal2 to-prime-black p-6 md:p-8 text-left transition-all duration-500 hover:border-gold/50 group ${
-                i % 2 === 1 ? "lg:mt-16" : ""
+              transition={{ delay: 0.3 + i * 0.14, duration: 0.75 }}
+              whileHover={{
+                scale: 1.025,
+                transition: { duration: 0.25, ease: "easeOut" },
+              }}
+              className={`relative overflow-hidden border border-gold/10 bg-gradient-to-br from-prime-charcoal2 to-prime-black p-7 md:p-8 text-left transition-colors duration-400 hover:border-gold/40 group ${
+                i % 2 === 1 ? "lg:mt-14" : ""
               }`}
+              style={{ willChange: "transform" }}
             >
-              <motion.div className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold/0 rounded-[24px] group-hover:from-gold/5 group-hover:to-gold/0 transition-all duration-500" />
+              {/* Gold glow hover — corner */}
+              <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-gold/15 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              <motion.div
-                className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gold/20 blur-2xl opacity-0 group-hover:opacity-100"
-                animate={{ scale: [1, 1.2, 1], opacity: [0, 0.1, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
+              {/* Hover fill overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gold/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none" />
 
               <div className="relative z-10">
+                {/* Ícone + badge */}
                 <div className="mb-5 md:mb-6 flex items-center justify-between gap-4">
                   <motion.div
-                    whileHover={{ scale: 1.15, rotate: 12 }}
-                    whileTap={{ scale: 0.95 }}
-                    animate={inView ? { y: [0, -4, 0] } : {}}
+                    animate={inView ? { y: [0, -5, 0] } : {}}
                     transition={{
-                      y: {
-                        delay: 0.5 + i * 0.2,
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      },
+                      delay: 0.6 + i * 0.2,
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
                     }}
-                    className="flex h-13 w-13 md:h-16 md:w-16 items-center justify-center rounded-2xl border-2 border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold text-xl md:text-2xl font-display font-bold group-hover:border-gold/80 group-hover:bg-gold/20 transition-all duration-300"
+                    className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center border-2 border-gold/35 bg-gradient-to-br from-gold/12 to-gold/4 text-gold text-xl md:text-2xl font-display font-bold group-hover:border-gold/70 group-hover:bg-gold/15 transition-all duration-300"
                   >
                     {num}
                   </motion.div>
 
-                  <motion.span
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.4 + i * 0.12 }}
-                    className="rounded-full border border-gold/30 bg-gold/10 px-2.5 md:px-3 py-1 md:py-1.5 text-[10px] md:text-[11px] uppercase tracking-[2px] text-gold/90 font-semibold group-hover:border-gold/70 group-hover:bg-gold/20 transition-all duration-300"
-                  >
+                  <span className="border border-gold/25 bg-gold/8 px-2.5 py-1 text-[10px] md:text-[11px] uppercase tracking-[2px] text-gold/80 font-body font-semibold group-hover:border-gold/60 group-hover:bg-gold/15 transition-all duration-300">
                     Step {num}
-                  </motion.span>
+                  </span>
                 </div>
 
                 <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 md:mb-4 group-hover:text-gold transition-colors duration-300">
                   {title}
                 </h3>
 
-                <p className="font-body text-prime-gray/70 text-[12px] md:text-sm leading-relaxed group-hover:text-prime-gray transition-colors duration-300">
+                <p className="font-body text-prime-gray/70 text-[12px] md:text-[13px] leading-relaxed group-hover:text-prime-gray transition-colors duration-300">
                   {desc}
                 </p>
 
+                {/* Bottom progress line — só nos 3 primeiros */}
                 {i < steps.length - 1 && (
                   <motion.div
-                    className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-gold to-gold/50"
+                    className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-gold to-gold/40"
                     initial={{ width: 0 }}
                     animate={inView ? { width: "100%" } : {}}
                     transition={{
-                      delay: 0.6 + i * 0.15,
+                      delay: 0.7 + i * 0.15,
                       duration: 1,
                       ease: "easeOut",
                     }}

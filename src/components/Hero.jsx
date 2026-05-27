@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { ArrowRight, CircleDot, Play, Shield, Trophy, Zap } from "lucide-react";
+import { ArrowRight, CircleDot, Play } from "lucide-react";
 import VideoModal from "./VideoModal";
 
 const stats = [
@@ -261,7 +261,7 @@ export default function Hero() {
               <span className="font-body text-[10px] font-semibold tracking-[2px] uppercase text-prime-gray">
                 Prime Company · 2026
               </span>
-              <span className="font-body text-[10px] font-mono text-prime-gray/70">
+              <span className="font-body text-[10px] text-prime-gray/70">
                 03:24
               </span>
             </div>
@@ -270,10 +270,10 @@ export default function Hero() {
           {/* Below: mini video cards */}
           <div className="grid grid-cols-3 gap-1 mt-1">
             {[
-              { label: "Alcateia", icon: Shield, duration: "1:18" },
-              { label: "C.T. Timão", icon: Shield, duration: "0:58" },
-              { label: "SPFC", icon: CircleDot, duration: "2:04" },
-            ].map(({ label, icon: Icon, duration }, i) => (
+              { label: "Alcateia", duration: "1:18" },
+              { label: "C.T. Timão", duration: "0:58" },
+              { label: "SPFC", duration: "2:04" },
+            ].map(({ label, duration }, i) => (
               <motion.div
                 key={label}
                 initial={{ opacity: 0, y: 20 }}
@@ -282,9 +282,6 @@ export default function Hero() {
                 onClick={() => setModalOpen(true)}
                 className="relative aspect-video bg-prime-charcoal2 border border-gold/10 overflow-hidden cursor-pointer group"
               >
-                <div className="absolute inset-0 flex items-center justify-center opacity-[0.08]">
-                  <Icon size={42} className="text-gold" />
-                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-prime-black/80 to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <Play size={18} className="text-gold fill-gold" />
@@ -293,7 +290,7 @@ export default function Hero() {
                   <span className="font-body text-[8px] font-bold tracking-[1px] uppercase text-white/70">
                     {label}
                   </span>
-                  <span className="font-body text-[8px] font-mono text-gold/60">
+                  <span className="font-body text-[8px] text-gold/60">
                     {duration}
                   </span>
                 </div>

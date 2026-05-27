@@ -1,20 +1,26 @@
 // Marquee.jsx — Prime Company
-// Mobile-otimizado: logos responsivos, fades nas bordas, hover colorido
 
 const logos = [
-  { src: "/assets/logos/ALCATEIACEVISA.png", alt: "Alcateia Cevisa" },
-  { src: "/assets/logos/CAPAWANDERSSON.png", alt: "Capa Wandersson" },
   {
-    src: "/assets/logos/CHUTEINICIALHORTOLANDIA.png",
+    src: "/dist/assets/logos/Capa Alcateia Gevisa.png",
+    alt: "Alcateia Gevisa",
+  },
+  {
+    src: "/dist/assets/logos/Capa Chute Inicial Hortolandia.png",
+    alt: "Chute Futsal",
+  },
+  {
+    src: "/dist/assets/logos/Capa Chute Inicial.png",
     alt: "Chute Inicial Hortolândia",
   },
-  { src: "/assets/logos/CORINTHIANSFUTSAL.png", alt: "Corinthians Futsal" },
-  { src: "/assets/logos/SPFCPAULINIA.png", alt: "SPFC Paulínia" },
-  { src: "/assets/logos/TIMAOSUMARE.png", alt: "Timão Sumaré" },
+  { src: "/dist/assets/logos/Capa Goalz.png", alt: "Goalz" },
+  { src: "/dist/assets/logos/Capa SPFC.png", alt: "SPFC" },
+  { src: "/dist/assets/logos/Capa Timão Sumaré.png", alt: "Timão Sumaré" },
+  { src: "/dist/assets/logos/Capa Wanderson.png", alt: "Wanderson" },
 ];
 
-// Triplicamos para o loop ser suave mesmo em telas largas
-const track = [...logos, ...logos, ...logos];
+// MUITAS cópias pro loop ficar perfeito
+const track = [...logos, ...logos, ...logos, ...logos, ...logos, ...logos];
 
 export default function Marquee() {
   return (
@@ -35,6 +41,7 @@ export default function Marquee() {
           background: "linear-gradient(to right, #0A0A0A, transparent)",
         }}
       />
+
       {/* Fade direita */}
       <div
         className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
@@ -46,7 +53,10 @@ export default function Marquee() {
 
       <div
         className="flex items-center animate-marquee"
-        style={{ width: "max-content", gap: "clamp(16px, 4vw, 32px)" }}
+        style={{
+          width: "max-content",
+          gap: "clamp(16px, 4vw, 32px)",
+        }}
       >
         {track.map(({ src, alt }, i) => (
           <img
@@ -54,18 +64,20 @@ export default function Marquee() {
             src={src}
             alt={alt}
             style={{
-              width: "clamp(120px, 18vw, 240px)",
-              height: "clamp(120px, 18vw, 240px)",
+              width: "clamp(70px, 10vw, 120px)",
+              height: "clamp(70px, 10vw, 120px)",
               objectFit: "contain",
               objectPosition: "center",
               filter: "grayscale(100%)",
               opacity: 0.45,
               flexShrink: 0,
-              /* Centraliza verticalmente sem transbordar a div */
-              marginTop: "calc((clamp(120px, 18vw, 240px) - 72px) / -2)",
-              marginBottom: "calc((clamp(120px, 18vw, 240px) - 72px) / -2)",
+
+              marginTop: "calc((clamp(70px, 10vw, 120px) - 72px) / -2)",
+              marginBottom: "calc((clamp(70px, 10vw, 120px) - 72px) / -2)",
+
               transition:
                 "transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease",
+
               cursor: "default",
             }}
             onMouseEnter={(e) => {
@@ -84,19 +96,3 @@ export default function Marquee() {
     </div>
   );
 }
-
-/*
-  ── tailwind.config.js ───────────────────────────────────────────────────────
-  Adicione/confirme em theme.extend:
-
-  animation: {
-    marquee: "marquee 22s linear infinite",
-  },
-  keyframes: {
-    marquee: {
-      from: { transform: "translateX(0)" },
-      to:   { transform: "translateX(-33.333%)" },  // 1/3 do track triplicado
-    },
-  },
-  ─────────────────────────────────────────────────────────────────────────────
-*/

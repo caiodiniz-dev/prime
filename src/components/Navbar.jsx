@@ -46,7 +46,7 @@ export default function Navbar() {
         >
           <div className="w-14 h-14 md:w-20 md:h-20 flex items-center justify-center overflow-hidden transition-all duration-300">
             <img
-              src="/logo.png"
+              src="/dist/logo.png"
               alt="Prime Company logo"
               className="w-full h-full object-contain transition duration-300 group-hover:scale-110"
             />
@@ -121,7 +121,7 @@ export default function Navbar() {
             {/* Logo no drawer */}
             <div className="absolute top-6 left-5 flex items-center gap-3">
               <img
-                src="/logo.png"
+                src="/dist/logo.png"
                 alt="Prime"
                 className="w-12 h-12 object-contain"
               />

@@ -6,21 +6,7 @@ import {
   animate,
 } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {
-  ArrowRight,
-  Camera,
-  ChevronLeft,
-  ChevronRight,
-  Clapperboard,
-  Goal,
-  Image,
-  LandPlot,
-  Palette,
-  Play,
-  Shield,
-  Smartphone,
-  Target,
-} from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 const TABS = ["Todos", "Vídeos", "Fotos"];
 
@@ -32,8 +18,7 @@ const mediaItems = [
     tag: "Prime Football · Reel",
     title: "REELS DO SPFC\n#VEMSERSPFC",
     duration: "2:34",
-    imageUrl: "/assets/videos/vd-1.jpeg",
-    icon: Shield,
+    imageUrl: "/dist/assets/videos/vd-1.jpeg",
     gradient: "from-[#1a1200] via-[#2d1f00] to-[#0f0e00]",
     accent: "#C9A84C",
   },
@@ -44,8 +29,7 @@ const mediaItems = [
     tag: "Vídeo Vertical",
     title: "ALCATEIA\nNOVORIZONTINO",
     duration: "2:15",
-    imageUrl: "/assets/videos/vd-2.jpeg",
-    icon: Shield,
+    imageUrl: "/dist/assets/videos/vd-2.jpeg",
     gradient: "from-[#1a0a0a] via-[#2d0000] to-[#1a0000]",
     accent: "#C9A84C",
   },
@@ -56,8 +40,7 @@ const mediaItems = [
     tag: "Vídeo Profissional",
     title: "GOALZ SPORT\nCLUB",
     duration: "1:58",
-    imageUrl: "/assets/videos/vd-3.jpeg",
-    icon: Camera,
+    imageUrl: "/dist/assets/videos/vd-3.jpeg",
     gradient: "from-[#0a0a1a] via-[#0f0020] to-[#0a0a1a]",
     accent: "#E6CC7A",
   },
@@ -67,8 +50,7 @@ const mediaItems = [
     client: "Chute Inicial",
     tag: "Entrevista Vertical",
     title: "CHUTE INICIAL\nHORTOLÂNDIA",
-    imageUrl: "/assets/videos/vd-4.jpeg",
-    icon: Smartphone,
+    imageUrl: "/dist/assets/videos/vd-4.jpeg",
     gradient: "from-[#1a1a0a] via-[#2d2800] to-[#1a1a0a]",
     accent: "#C9A84C",
   },
@@ -79,8 +61,7 @@ const mediaItems = [
     tag: "Frames & Clips",
     title: "PAULÍNIA\nSPORTS CLUB",
     duration: "0:45",
-    imageUrl: "/assets/videos/vd-1.jpeg",
-    icon: Target,
+    imageUrl: "/dist/assets/videos/vd-1.jpeg",
     gradient: "from-[#0a0a1a] via-[#001020] to-[#0a0a1a]",
     accent: "#E6CC7A",
   },
@@ -90,8 +71,7 @@ const mediaItems = [
     client: "Goalz",
     tag: "Cobertura Fotográfica",
     title: "GOALZ\nEM CAMPO",
-    photoUrl: "/foto-goalz-sport.jpeg",
-    icon: LandPlot,
+    photoUrl: "/dist/foto-goalz-sport.jpeg",
     gradient: "from-[#1a0a1a] via-[#1a001a] to-[#0a000a]",
     accent: "#C9A84C",
   },
@@ -101,8 +81,7 @@ const mediaItems = [
     client: "São Paulo",
     tag: "Cobertura de Campeonato",
     title: "SÃO PAULO\nCAMPEONATO",
-    photoUrl: "/foto-sao-paulo.jpeg",
-    icon: Clapperboard,
+    photoUrl: "/dist/foto-sao-paulo.jpeg",
     gradient: "from-[#001a1a] via-[#001a20] to-[#001010]",
     accent: "#E6CC7A",
   },
@@ -120,7 +99,6 @@ function typeFromTab(tab) {
 
 function MediaCard({ item, onClick, isCenter }) {
   const isVideo = item.type === "video";
-  const Icon = item.icon || Goal;
 
   return (
     <motion.div
@@ -162,11 +140,6 @@ function MediaCard({ item, onClick, isCenter }) {
         }}
       />
 
-      {/* Big icon */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.06] select-none pointer-events-none">
-        <Icon size={96} className="text-gold" />
-      </div>
-
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-prime-black/95 via-prime-black/30 to-transparent" />
 
@@ -186,9 +159,7 @@ function MediaCard({ item, onClick, isCenter }) {
 
       {/* Photo icon */}
       {item.type === "foto" && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Image size={28} className="text-gold/70" />
-        </div>
+        <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       )}
 
       {/* Duration badge */}
@@ -208,13 +179,6 @@ function MediaCard({ item, onClick, isCenter }) {
         }}
       >
         <span className="inline-flex items-center gap-1.5">
-          {item.type === "video" ? (
-            <Play size={10} fill="currentColor" />
-          ) : item.type === "foto" ? (
-            <Camera size={10} />
-          ) : (
-            <Palette size={10} />
-          )}
           {item.type === "video"
             ? "VÍDEO"
             : item.type === "foto"
