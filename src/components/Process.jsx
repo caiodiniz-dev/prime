@@ -1,6 +1,4 @@
-// Process.jsx — Prime Football — "Campo Tático"
-// Mobile: cards em lista vertical com campo como fundo decorativo
-// Desktop: layout tático com campo central e cards flutuando laterais
+// Process.jsx — PRIME FOOTBALL — FINAL PREMIUM
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -9,504 +7,517 @@ import { useState } from "react";
 const steps = [
   {
     zone: "DEFESA",
-    title: "Diagnóstico",
-    desc: "Análise profunda da marca, posicionamento atual, concorrência local e público-alvo. Entendemos o jogo antes de entrar em campo — sem palpites, só estratégia.",
-    side: "left",
-    fieldY: "8%",
+    title: "Leitura de Jogo",
+    desc: "Analisamos teu posicionamento, concorrência e como tua marca entra em campo.",
   },
+
   {
     zone: "MEIO-CAMPO",
-    title: "Estratégia",
-    desc: "Planejamento editorial personalizado, identidade visual adaptada ao clube e calendário de conteúdo com foco em captação de alunos e autoridade de marca.",
-    side: "right",
-    fieldY: "33%",
+    title: "Armação da Jogada",
+    desc: "Estratégia, identidade visual e linha editorial pra tua escola dominar a posse.",
   },
+
   {
     zone: "ATAQUE",
-    title: "Produção",
-    desc: "Captação presencial em campo, edição de vídeo premium, design de peças gráficas e copy que conecta emocionalmente com famílias e atletas — sem clichês.",
-    side: "left",
-    fieldY: "58%",
+    title: "Pressão no Último Terço",
+    desc: "Captação presencial, edição premium e conteúdos que fazem a torcida comprar a ideia.",
   },
+
   {
     zone: "GOL",
-    title: "Resultado",
-    desc: "Publicação com aprovação do responsável, monitoramento de métricas em tempo real e otimização constante para garantir crescimento previsível todo mês.",
-    side: "right",
-    fieldY: "82%",
+    title: "Bola na Rede",
+    desc: "Publicação estratégica, métricas e otimização constante pra crescer todo mês.",
   },
 ];
 
 function FieldSVG({ inView }) {
+  const [goal, setGoal] = useState(false);
+
   return (
-    <svg
-      viewBox="0 0 320 560"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full"
-    >
-      <motion.rect
-        x="10"
-        y="10"
-        width="300"
-        height="540"
-        rx="4"
-        stroke="rgba(201,168,76,0.25)"
-        strokeWidth="1.5"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={inView ? { pathLength: 1, opacity: 1 } : {}}
-        transition={{ duration: 1.5 }}
+    <div className="relative w-full h-full overflow-hidden rounded-[28px]">
+      {/* Glow */}
+      <motion.div
+        className="absolute inset-0 rounded-[30px] bg-gold/10 blur-[120px]"
+        animate={{
+          opacity: [0.25, 0.45, 0.25],
+          scale: [1, 1.03, 1],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+        }}
       />
-      <motion.line
-        x1="10"
-        y1="280"
-        x2="310"
-        y2="280"
-        stroke="rgba(201,168,76,0.2)"
-        strokeWidth="1"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.4, duration: 0.8 }}
+
+      {/* Confete */}
+      {goal &&
+        [...Array(18)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute z-50 rounded-full"
+            style={{
+              width: Math.random() * 6 + 4,
+              height: Math.random() * 14 + 8,
+              left: "91%",
+              top: "50%",
+              background:
+                i % 2 === 0 ? "rgba(201,168,76,1)" : "rgba(255,255,255,0.95)",
+              boxShadow: "0 0 10px rgba(201,168,76,0.9)",
+            }}
+            initial={{
+              opacity: 1,
+              x: 0,
+              y: 0,
+              rotate: 0,
+              scale: 1,
+            }}
+            animate={{
+              opacity: [1, 1, 0],
+              x: (Math.random() - 0.5) * 260,
+              y: Math.random() * 240 - 120,
+              rotate: Math.random() * 720,
+              scale: [1, 1.2, 0.6],
+            }}
+            transition={{
+              duration: 1.4,
+              ease: "easeOut",
+              delay: i * 0.03,
+            }}
+          />
+        ))}
+
+      {/* Vinheta */}
+      <div className="absolute inset-0 rounded-[24px] bg-black/20 z-10 pointer-events-none" />
+
+      {/* Linha glow */}
+      <motion.div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-gold/40 to-transparent z-20"
+        animate={{
+          opacity: [0.2, 1, 0.2],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+        }}
       />
-      <motion.circle
-        cx="160"
-        cy="280"
-        r="48"
-        stroke="rgba(201,168,76,0.18)"
-        strokeWidth="1"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.6, duration: 1 }}
-      />
-      <motion.circle
-        cx="160"
-        cy="280"
-        r="3"
-        fill="rgba(201,168,76,0.4)"
-        initial={{ scale: 0 }}
-        animate={inView ? { scale: 1 } : {}}
-        transition={{ delay: 0.9 }}
-      />
-      <motion.rect
-        x="70"
-        y="10"
-        width="180"
-        height="72"
-        stroke="rgba(201,168,76,0.18)"
-        strokeWidth="1"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.5, duration: 0.7 }}
-      />
-      <motion.rect
-        x="110"
-        y="10"
-        width="100"
-        height="36"
-        stroke="rgba(201,168,76,0.12)"
-        strokeWidth="1"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.7, duration: 0.5 }}
-      />
-      <motion.rect
-        x="70"
-        y="478"
-        width="180"
-        height="72"
-        stroke="rgba(201,168,76,0.18)"
-        strokeWidth="1"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.5, duration: 0.7 }}
-      />
-      <motion.rect
-        x="110"
-        y="514"
-        width="100"
-        height="36"
-        stroke="rgba(201,168,76,0.12)"
-        strokeWidth="1"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.7, duration: 0.5 }}
-      />
-      <motion.path
-        d="M 112 82 A 48 48 0 0 0 208 82"
-        stroke="rgba(201,168,76,0.12)"
-        strokeWidth="1"
+
+      <svg
+        viewBox="0 0 560 320"
         fill="none"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.8, duration: 0.6 }}
-      />
-      <motion.path
-        d="M 112 478 A 48 48 0 0 1 208 478"
-        stroke="rgba(201,168,76,0.12)"
-        strokeWidth="1"
-        fill="none"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 0.8, duration: 0.6 }}
-      />
-      {[
-        [10, 10],
-        [310, 10],
-        [10, 550],
-        [310, 550],
-      ].map(([cx, cy], i) => (
-        <motion.circle
-          key={i}
-          cx={cx}
-          cy={cy}
-          r="10"
-          stroke="rgba(201,168,76,0.15)"
-          strokeWidth="1"
-          fill="none"
-          initial={{ pathLength: 0 }}
-          animate={inView ? { pathLength: 1 } : {}}
-          transition={{ delay: 1 + i * 0.1, duration: 0.4 }}
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full relative z-20"
+      >
+        <defs>
+          <linearGradient id="grassGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#0F0F0F" />
+            <stop offset="100%" stopColor="#050505" />
+          </linearGradient>
+
+          <radialGradient id="fieldGlow">
+            <stop offset="0%" stopColor="rgba(201,168,76,0.12)" />
+            <stop offset="100%" stopColor="rgba(201,168,76,0)" />
+          </radialGradient>
+
+          <pattern
+            id="smallGrid"
+            width="16"
+            height="16"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 16 0 L 0 0 0 16"
+              fill="none"
+              stroke="rgba(255,255,255,0.015)"
+              strokeWidth="1"
+            />
+          </pattern>
+        </defs>
+
+        {/* Fundo */}
+        <rect
+          x="0"
+          y="0"
+          width="560"
+          height="320"
+          rx="24"
+          fill="url(#grassGradient)"
         />
-      ))}
-      <motion.path
-        d="M 160 520 C 160 480, 200 400, 160 280 C 120 160, 170 100, 160 46"
-        stroke="rgba(201,168,76,0.08)"
-        strokeWidth="1.5"
-        strokeDasharray="4 4"
-        fill="none"
-        initial={{ pathLength: 0 }}
-        animate={inView ? { pathLength: 1 } : {}}
-        transition={{ delay: 1.2, duration: 2 }}
-      />
-      {inView && (
-        <motion.circle
-          cx="160"
-          cy="46"
-          r="7"
-          fill="rgba(201,168,76,0.9)"
-          style={{ filter: "drop-shadow(0 0 6px rgba(201,168,76,0.8))" }}
+
+        {/* Grid */}
+        <rect width="560" height="320" fill="url(#smallGrid)" opacity="0.45" />
+
+        {/* Glow */}
+        <rect width="560" height="320" fill="url(#fieldGlow)" />
+
+        {/* Faixas */}
+        {[20, 55, 90, 125, 160, 195, 230, 265].map((y, i) => (
+          <motion.rect
+            key={i}
+            x="10"
+            y={y}
+            width="540"
+            height="20"
+            fill={
+              i % 2 === 0
+                ? "rgba(255,255,255,0.018)"
+                : "rgba(255,255,255,0.035)"
+            }
+            animate={{
+              opacity: [0.7, 1, 0.7],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+          />
+        ))}
+
+        {/* Moldura */}
+        <motion.rect
+          x="6"
+          y="6"
+          width="548"
+          height="308"
+          rx="20"
+          stroke="rgba(201,168,76,0.08)"
+          strokeWidth="2"
           animate={{
-            cx: [160, 200, 160, 120, 160],
-            cy: [520, 400, 280, 160, 46],
+            opacity: [0.5, 1, 0.5],
           }}
           transition={{
             duration: 4,
             repeat: Infinity,
-            repeatDelay: 1,
-            ease: [0.4, 0, 0.6, 1],
-            delay: 1.5,
           }}
         />
-      )}
-      {[46, 185, 375, 520].map((cy, i) => (
-        <motion.g key={i}>
-          <motion.circle
-            cx="160"
+
+        {/* Campo */}
+        <motion.rect
+          x="10"
+          y="10"
+          width="540"
+          height="300"
+          rx="8"
+          stroke="rgba(201,168,76,0.28)"
+          strokeWidth="1.5"
+          initial={{ pathLength: 0 }}
+          animate={inView ? { pathLength: 1 } : {}}
+          transition={{ duration: 1.6 }}
+        />
+
+        {/* Meio */}
+        <motion.line
+          x1="280"
+          y1="10"
+          x2="280"
+          y2="310"
+          stroke="rgba(201,168,76,0.16)"
+          strokeWidth="1"
+          initial={{ pathLength: 0 }}
+          animate={inView ? { pathLength: 1 } : {}}
+        />
+
+        {/* Círculo */}
+        <motion.circle
+          cx="280"
+          cy="160"
+          r="48"
+          stroke="rgba(201,168,76,0.18)"
+          strokeWidth="1"
+          initial={{ pathLength: 0 }}
+          animate={inView ? { pathLength: 1 } : {}}
+        />
+
+        <circle cx="280" cy="160" r="4" fill="rgba(201,168,76,0.9)" />
+
+        {/* Áreas */}
+        <rect
+          x="10"
+          y="70"
+          width="72"
+          height="180"
+          stroke="rgba(201,168,76,0.18)"
+          strokeWidth="1"
+        />
+
+        <rect
+          x="10"
+          y="110"
+          width="36"
+          height="100"
+          stroke="rgba(201,168,76,0.1)"
+          strokeWidth="1"
+        />
+
+        <rect
+          x="478"
+          y="70"
+          width="72"
+          height="180"
+          stroke="rgba(201,168,76,0.18)"
+          strokeWidth="1"
+        />
+
+        <rect
+          x="514"
+          y="110"
+          width="36"
+          height="100"
+          stroke="rgba(201,168,76,0.1)"
+          strokeWidth="1"
+        />
+
+        {/* Semi círculos */}
+        <path
+          d="M 82 112 A 48 48 0 0 1 82 208"
+          stroke="rgba(201,168,76,0.1)"
+          strokeWidth="1"
+        />
+
+        <path
+          d="M 478 112 A 48 48 0 0 0 478 208"
+          stroke="rgba(201,168,76,0.1)"
+          strokeWidth="1"
+        />
+
+        {/* Cantos */}
+        {[
+          [10, 10],
+          [550, 10],
+          [10, 310],
+          [550, 310],
+        ].map(([cx, cy], i) => (
+          <circle
+            key={i}
+            cx={cx}
             cy={cy}
-            r="5"
-            fill="rgba(201,168,76,0.15)"
-            stroke="rgba(201,168,76,0.5)"
-            strokeWidth="1"
-            initial={{ scale: 0 }}
-            animate={inView ? { scale: 1 } : {}}
-            transition={{ delay: 0.8 + i * 0.2, type: "spring" }}
-          />
-          <motion.circle
-            cx="160"
-            cy={cy}
-            r="12"
-            stroke="rgba(201,168,76,0.15)"
-            strokeWidth="1"
+            r="10"
+            stroke="rgba(201,168,76,0.1)"
             fill="none"
-            animate={{ scale: [1, 1.8, 1], opacity: [0.4, 0, 0.4] }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.6 }}
           />
-        </motion.g>
-      ))}
-    </svg>
-  );
-}
+        ))}
 
-// Card para mobile (lista vertical)
-function MobileCard({ step, i, inView }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        delay: 0.2 + i * 0.15,
-        duration: 0.7,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      className="relative overflow-hidden border border-gold/15 bg-prime-black/90 p-5"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(20,18,14,0.97) 0%, rgba(12,10,8,0.99) 100%)",
-      }}
-    >
-      <motion.div
-        className="absolute top-0 left-0 h-[1.5px] bg-gradient-to-r from-gold via-gold/60 to-transparent"
-        initial={{ width: 0 }}
-        animate={inView ? { width: "100%" } : {}}
-        transition={{ delay: 0.5 + i * 0.15, duration: 0.7 }}
-      />
-      <div className="flex items-center gap-2 mb-3">
-        <motion.div
-          className="w-1.5 h-1.5 rounded-full bg-gold"
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-        />
-        <span className="font-body text-[9px] tracking-[3px] uppercase text-gold/60 font-bold">
-          {step.zone}
-        </span>
-      </div>
-      <h3 className="font-display font-black text-white text-lg leading-tight mb-2">
-        {step.title}
-      </h3>
-      <p className="font-body text-prime-gray/60 text-[12px] leading-relaxed">
-        {step.desc}
-      </p>
-      <div
-        className={`absolute bottom-0 right-0 w-8 h-8 overflow-hidden opacity-40`}
-      >
-        <div
-          className="absolute bottom-0 right-0 w-0 h-0"
-          style={{
-            borderLeft: "20px solid transparent",
-            borderBottom: "20px solid rgba(201,168,76,0.3)",
+        {/* Linha tática */}
+        <motion.path
+          d="M 46 160 C 120 120, 220 120, 280 160 C 340 200, 420 200, 520 160"
+          stroke="rgba(201,168,76,0.12)"
+          strokeWidth="1.5"
+          strokeDasharray="5 5"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={inView ? { pathLength: 1 } : {}}
+          transition={{
+            duration: 2.8,
+            delay: 1,
           }}
         />
-      </div>
-    </motion.div>
+
+        {/* Glow gol */}
+        <motion.rect
+          x="500"
+          y="90"
+          width="40"
+          height="140"
+          fill="rgba(201,168,76,0.04)"
+          animate={{
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+          }}
+        />
+
+        {/* Bola */}
+        {inView && (
+          <motion.circle
+            cx="46"
+            cy="160"
+            r="7"
+            fill="rgba(201,168,76,1)"
+            style={{
+              filter: "drop-shadow(0 0 12px rgba(201,168,76,1))",
+            }}
+            animate={{
+              cx: [46, 120, 200, 280, 360, 450, 520],
+              cy: [160, 135, 145, 160, 180, 165, 160],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: [0.22, 1, 0.36, 1],
+              times: [0, 0.15, 0.3, 0.5, 0.7, 0.88, 1],
+            }}
+            onUpdate={(latest) => {
+              if (latest.cx >= 510 && !goal) {
+                setGoal(true);
+
+                setTimeout(() => {
+                  setGoal(false);
+                }, 1200);
+              }
+            }}
+          />
+        )}
+      </svg>
+    </div>
   );
 }
 
-// Card para desktop (posição tática)
-function DesktopCard({ step, i, inView }) {
+function TacticalCard({ step, i, inView }) {
   const [hovered, setHovered] = useState(false);
-  const isLeft = step.side === "left";
 
   return (
     <motion.div
-      className={`absolute w-[38%] ${isLeft ? "left-0" : "right-0"}`}
-      style={{ top: step.fieldY, transform: "translateY(-50%)" }}
-      initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
+      initial={{
+        opacity: 0,
+        y: 30,
+      }}
+      animate={
+        inView
+          ? {
+              opacity: 1,
+              y: 0,
+            }
+          : {}
+      }
       transition={{
-        delay: 0.4 + i * 0.2,
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        delay: 0.2 + i * 0.12,
+        duration: 0.7,
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <motion.div
-        className={`absolute top-1/2 -translate-y-1/2 h-px`}
-        style={{
-          width: 32,
-          [isLeft ? "right" : "left"]: -32,
-          background: isLeft
-            ? "linear-gradient(to right, rgba(201,168,76,0.5), rgba(201,168,76,0.1))"
-            : "linear-gradient(to left, rgba(201,168,76,0.5), rgba(201,168,76,0.1))",
-        }}
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : {}}
-        transition={{ delay: 0.6 + i * 0.2 }}
-      />
-      <motion.div
         animate={
           hovered
-            ? { y: -4, boxShadow: "0 20px 60px rgba(201,168,76,0.15)" }
-            : { y: 0 }
+            ? {
+                y: -6,
+                borderColor: "rgba(201,168,76,0.3)",
+                boxShadow: "0 25px 70px rgba(201,168,76,0.14)",
+              }
+            : {}
         }
-        transition={{ duration: 0.3 }}
-        className="relative overflow-hidden border border-gold/15 p-5 cursor-default"
+        transition={{
+          duration: 0.3,
+        }}
+        className="relative overflow-hidden border border-gold/10 bg-prime-black/90 p-6 backdrop-blur-md"
         style={{
           background:
-            "linear-gradient(135deg, rgba(20,18,14,0.97) 0%, rgba(12,10,8,0.99) 100%)",
+            "linear-gradient(135deg, rgba(20,18,14,0.98) 0%, rgba(12,10,8,1) 100%)",
         }}
       >
         <motion.div
           className="absolute top-0 left-0 h-[1.5px] bg-gradient-to-r from-gold via-gold/60 to-transparent"
           initial={{ width: 0 }}
           animate={inView ? { width: "100%" } : {}}
-          transition={{ delay: 0.7 + i * 0.2, duration: 0.7 }}
-        />
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          animate={hovered ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%)",
+          transition={{
+            delay: 0.5 + i * 0.12,
+            duration: 0.7,
           }}
         />
-        <div className="flex items-center gap-2 mb-3">
-          <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-gold"
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-          />
-          <span className="font-body text-[9px] tracking-[3px] uppercase text-gold/60 font-bold">
-            {step.zone}
-          </span>
-        </div>
-        <h3 className="font-display font-black text-white text-lg xl:text-xl leading-tight mb-2">
+
+        <span className="text-[10px] tracking-[3px] uppercase text-gold/70 font-bold">
+          {step.zone}
+        </span>
+
+        <h3 className="text-white text-[24px] font-black mt-3 mb-3 leading-none">
           {step.title}
         </h3>
-        <p className="font-body text-prime-gray/60 text-[11px] leading-relaxed">
+
+        <p className="text-prime-gray/70 text-[13px] leading-relaxed">
           {step.desc}
         </p>
-        <div
-          className={`absolute bottom-0 ${isLeft ? "right-0" : "left-0"} w-8 h-8 overflow-hidden opacity-40`}
-        >
-          <div
-            className={`absolute bottom-0 ${isLeft ? "right-0" : "left-0"} w-0 h-0`}
-            style={
-              isLeft
-                ? {
-                    borderLeft: "20px solid transparent",
-                    borderBottom: "20px solid rgba(201,168,76,0.3)",
-                  }
-                : {
-                    borderRight: "20px solid transparent",
-                    borderBottom: "20px solid rgba(201,168,76,0.3)",
-                  }
-            }
-          />
-        </div>
       </motion.div>
     </motion.div>
   );
 }
 
 export default function Process() {
-  const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
+  const [ref, inView] = useInView({
+    threshold: 0.05,
+    triggerOnce: true,
+  });
 
   return (
     <section className="py-24 md:py-32 bg-prime-charcoal relative overflow-hidden">
-      {/* Orbs */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <motion.div
-          className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-gold/4 blur-[140px]"
-          animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-gold/3 blur-[100px]"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.5, 0.2] }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-      </div>
-
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
-
       <div
-        className="max-w-[1280px] mx-auto px-5 md:px-10 relative z-10"
+        className="max-w-[1400px] mx-auto px-5 md:px-10 relative z-10"
         ref={ref}
       >
         {/* Header */}
-        <div className="text-center mb-14 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="section-label justify-center"
-          >
-            Como Trabalhamos
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
+        <div className="text-center mb-10 md:mb-14">
+          <h2
             className="font-display font-black text-white"
-            style={{ fontSize: "clamp(28px, 4vw, 60px)", lineHeight: 1.02 }}
+            style={{
+              fontSize: "clamp(32px, 5vw, 64px)",
+              lineHeight: 1,
+            }}
           >
-            Método <em className="text-gold not-italic">Prime</em> em ação
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.25 }}
-            className="font-body text-prime-gray text-[13px] md:text-[15px] max-w-xl mx-auto mt-4 leading-relaxed"
-          >
-            Cada etapa transforma escolas e times em marcas memoráveis —
-            estratégia, narrativa e entrega com excelência absoluta em cada
-            frame.
-          </motion.p>
+            Método <span className="text-gold">Prime</span> em ação
+          </h2>
+
+          <p className="text-prime-gray text-[14px] md:text-[15px] max-w-2xl mx-auto mt-5 leading-relaxed">
+            Estratégia, narrativa e posicionamento pra transformar escolas em
+            marcas que dominam o jogo.
+          </p>
         </div>
 
-        {/* ── MOBILE: cards em coluna + campo embaixo ── */}
-        <div className="block md:hidden">
-          <div className="flex flex-col gap-3">
-            {steps.map((step, i) => (
-              <MobileCard key={step.title} step={step} i={i} inView={inView} />
-            ))}
-          </div>
-          {/* Campo abaixo dos cards */}
-          <div className="flex justify-center mt-6">
-            <div className="relative w-36">
+        {/* MOBILE */}
+        <div className="flex flex-col gap-4 md:hidden">
+          {steps.map((step, i) => (
+            <TacticalCard key={step.title} step={step} i={i} inView={inView} />
+          ))}
+
+          <div className="relative w-full mt-8 flex justify-center">
+            <div className="relative w-full max-w-[420px] aspect-[16/9]">
               <FieldSVG inView={inView} />
-              <motion.div
-                className="absolute left-1/2 top-1/2 pointer-events-none select-none"
-                style={{ transform: "translate(-50%, -50%) rotate(-90deg)" }}
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ delay: 1.8 }}
-              >
-                <span className="font-display font-black text-[7px] tracking-[4px] text-gold/20 uppercase whitespace-nowrap">
+
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span className="font-display font-black uppercase tracking-[8px] text-white/10 text-[14px]">
                   PRIME FOOTBALL
                 </span>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* ── DESKTOP: layout tático com campo central ── */}
-        <div className="hidden md:flex justify-center">
-          <div className="relative w-full max-w-[900px]">
-            <div
-              className="relative mx-auto flex justify-center"
-              style={{ height: "clamp(500px, 60vw, 660px)" }}
-            >
-              {/* Campo SVG */}
-              <div
-                style={{
-                  width: "clamp(200px, 24vw, 280px)",
-                  height: "100%",
-                  flexShrink: 0,
-                }}
-              >
-                <FieldSVG inView={inView} />
-              </div>
-              {/* Cards táticos absolutos */}
-              <div className="absolute inset-0">
-                {steps.map((step, i) => (
-                  <DesktopCard
-                    key={step.title}
-                    step={step}
-                    i={i}
-                    inView={inView}
-                  />
-                ))}
-              </div>
-              {/* Label PRIME FOOTBALL rotacionado */}
-              <motion.div
-                className="absolute left-1/2 top-1/2 pointer-events-none select-none"
-                style={{ transform: "translate(-50%, -50%) rotate(-90deg)" }}
+        {/* DESKTOP */}
+        <div className="hidden md:flex flex-col gap-12 items-center">
+          <div className="relative w-full max-w-[950px] aspect-[16/9]">
+            <FieldSVG inView={inView} />
+
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <motion.span
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
-                transition={{ delay: 1.8 }}
+                transition={{ delay: 1.2 }}
+                className="
+                  font-display
+                  font-black
+                  uppercase
+                  tracking-[10px]
+                  text-white/8
+                  text-[18px]
+                  lg:text-[24px]
+                "
               >
-                <span className="font-display font-black text-[11px] tracking-[8px] text-gold/8 uppercase whitespace-nowrap">
-                  PRIME FOOTBALL
-                </span>
-              </motion.div>
+                PRIME FOOTBALL
+              </motion.span>
             </div>
+          </div>
+
+          {/* Cards */}
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 w-full max-w-[1250px]">
+            {steps.map((step, i) => (
+              <TacticalCard
+                key={step.title}
+                step={step}
+                i={i}
+                inView={inView}
+              />
+            ))}
           </div>
         </div>
       </div>
