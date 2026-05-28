@@ -5,21 +5,21 @@ const testimonials = [
   {
     text: "Antes da Prime, nosso CT era invisível nas redes. Hoje somos referência na região de Campinas. O conteúdo emocional que eles produzem cria um pertencimento real com os atletas e as famílias.",
     author: "Carlos Mendes",
-    org: "São Paulo FC — Campinas",
-    photo: "/assets/SPFC-user.jpeg",
+    org: "São Paulo FC — Paulínia",
+    photo: "public/assets/logos/SPFC-user.jpeg",
   },
   {
     text: "A Prime Football transformou nosso projeto. Em 6 meses dobramos o número de alunos e hoje temos lista de espera em todas as categorias. A qualidade do conteúdo é incomparável no mercado.",
     author: "Rafael Oliveira",
     org: "C.T. Timão — Sumaré",
-    photo: "/assets/timaosumare-user.jpeg",
+    photo: "public/assets/logos/timaosumare-user.jpeg",
     featured: true,
   },
   {
     text: "O nível de profissionalismo da Prime é diferente de tudo que já vi no mercado esportivo. A estética das peças transmite exatamente a grandeza que nossa escola merece.",
     author: "Lucas Ferreira",
-    org: "Goalz Sport — Campinas",
-    photo: "/assets/goalz-users.jpeg",
+    org: "Goalz Sport",
+    photo: "public/assets/logos/goalz-users.jpeg",
   },
 ];
 
